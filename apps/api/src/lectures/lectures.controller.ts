@@ -72,30 +72,6 @@ export class LecturesController {
     return { status: lecture.status };
   }
 
-  @Post('admin/:adminToken/battle')
-  async createBattle(
-    @Param('adminToken') adminToken: string,
-    @Body() body: { text: string; options: string[] },
-  ) {
-    const lecture = await this.lecturesService.findByAdminToken(adminToken);
-    if (!lecture) throw new NotFoundException();
-    const question = await this.lecturesService.createBattleQuestion(lecture.id, body.text, body.options);
-    this.pollGateway.emitToRoom(lecture.code, 'battle:question', question);
-    return question;
-  }
-
-  @Patch('admin/:adminToken/battle/:questionId')
-  async closeBattle(
-    @Param('adminToken') adminToken: string,
-    @Param('questionId') questionId: string,
-  ) {
-    const lecture = await this.lecturesService.findByAdminToken(adminToken);
-    if (!lecture) throw new NotFoundException();
-    const question = await this.lecturesService.closeBattleQuestion(questionId);
-    this.pollGateway.emitToRoom(lecture.code, 'battle:closed', { questionId });
-    return question;
-  }
-
   @Get('admin/:adminToken/stats')
   async getAdminStats(@Param('adminToken') adminToken: string) {
     const lecture = await this.lecturesService.findByAdminToken(adminToken);

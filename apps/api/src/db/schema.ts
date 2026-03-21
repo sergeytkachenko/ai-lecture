@@ -2,7 +2,7 @@ import { pgTable, uuid, varchar, integer, boolean, jsonb, timestamp, pgEnum } fr
 
 export const lectureStatusEnum = pgEnum('lecture_status', ['draft', 'pre_lecture', 'in_progress', 'post_lecture', 'closed']);
 export const questionTypeEnum = pgEnum('question_type', ['scale', 'single_choice']);
-export const phaseEnum = pgEnum('phase', ['start', 'end', 'battle']);
+export const phaseEnum = pgEnum('phase', ['start', 'end']);
 
 export const lectures = pgTable('lectures', {
   id: uuid('id').primaryKey().defaultRandom(),

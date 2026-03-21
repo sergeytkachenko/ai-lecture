@@ -71,7 +71,6 @@ onUnmounted(() => {
               :class="{
                 'bg-blue-100 text-blue-700': s.question.phase === 'start',
                 'bg-green-100 text-green-700': s.question.phase === 'end',
-                'bg-yellow-100 text-yellow-700': s.question.phase === 'battle',
               }"
             >{{ s.question.phase }}</span>
             <h3 class="text-lg font-semibold text-gray-800 mt-2">{{ s.question.text }}</h3>

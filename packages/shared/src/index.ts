@@ -14,7 +14,7 @@ export enum QuestionType {
 export enum Phase {
   START = 'start',
   END = 'end',
-  BATTLE = 'battle',
+
 }
 
 export interface ScaleConfig {
@@ -65,10 +65,6 @@ export interface CreateLectureDto {
   speakerName: string;
 }
 
-export interface CreateBattleQuestionDto {
-  text: string;
-  options: string[];
-}
 
 export interface StatsQuestion {
   question: QuestionDto;

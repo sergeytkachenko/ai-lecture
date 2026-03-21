@@ -25,7 +25,7 @@ async function loadLecture() {
 
 const startQuestions = computed(() => stats.value.filter(s => s.question.phase === 'start'));
 const endQuestions = computed(() => stats.value.filter(s => s.question.phase === 'end'));
-const battleQuestions = computed(() => stats.value.filter(s => s.question.phase === 'battle' && !s.question.isActive));
+
 const totalResponses = computed(() => {
   const fps = new Set<string>();
   // Approximate from totals
@@ -80,13 +80,11 @@ onMounted(async () => {
   socketStore.joinRoom(code);
   socketStore.on('stats:update', handleStatsUpdate);
   socketStore.on('lecture:status', handleStatusChange);
-  socketStore.on('battle:closed', handleStatsUpdate);
 });
 
 onUnmounted(() => {
   socketStore.off('stats:update', handleStatsUpdate);
   socketStore.off('lecture:status', handleStatusChange);
-  socketStore.off('battle:closed', handleStatsUpdate);
 });
 
 const isPostLecture = computed(() =>
@@ -178,21 +176,6 @@ const showComparison = computed(() =>
           :labels="scaleLabels(s.question.config)"
           :values="scaleValues(s.responses, s.question.config)"
           color="#10b981"
-        />
-        <div class="text-sm text-slate-500 mt-2">{{ s.total }} відповідей</div>
-      </div>
-    </div>
-
-    <!-- Battle Results -->
-    <div v-if="battleQuestions.length" class="space-y-6 mb-10">
-      <h2 class="text-xl font-bold text-yellow-400">AI Battle — Результати</h2>
-      <div v-for="s in battleQuestions" :key="s.question.id" class="bg-slate-800/50 rounded-2xl p-6">
-        <h3 class="text-lg font-semibold mb-3">{{ s.question.text }}</h3>
-        <BarChart
-          :labels="s.responses.map((r: any) => r.value)"
-          :values="s.responses.map((r: any) => r.count)"
-          color="#f59e0b"
-          :horizontal="true"
         />
         <div class="text-sm text-slate-500 mt-2">{{ s.total }} відповідей</div>
       </div>
