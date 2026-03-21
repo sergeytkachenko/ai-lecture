@@ -89,8 +89,12 @@ onUnmounted(() => {
   socketStore.off('battle:closed', handleStatsUpdate);
 });
 
+const isPostLecture = computed(() =>
+  lecture.value && ['post_lecture', 'closed'].includes(lecture.value.status),
+);
+
 const showComparison = computed(() =>
-  lecture.value && ['post_lecture', 'closed'].includes(lecture.value.status) && comparisonPairs.value.length > 0,
+  isPostLecture.value && comparisonPairs.value.some(p => p.end.total > 0),
 );
 </script>
 
@@ -160,7 +164,7 @@ const showComparison = computed(() =>
     </div>
 
     <!-- Unique END questions (single choice, rating) -->
-    <div v-if="uniqueEndQuestions.length" class="space-y-6 mb-10">
+    <div v-if="isPostLecture && uniqueEndQuestions.length" class="space-y-6 mb-10">
       <div v-for="s in uniqueEndQuestions" :key="s.question.id" class="bg-slate-800/50 rounded-2xl p-6">
         <h3 class="text-lg font-semibold mb-1">{{ s.question.text }}</h3>
         <div v-if="s.average !== undefined" class="text-5xl font-bold text-emerald-400 mb-3">{{ s.average.toFixed(1) }}<span class="text-lg text-slate-400"> / 10</span></div>

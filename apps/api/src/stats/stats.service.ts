@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { db } from '../db/connection';
 import { questions, responses } from '../db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 @Injectable()
 export class StatsService {
   async getStats(lectureId: string) {
     const allQuestions = await db.select().from(questions).where(eq(questions.lectureId, lectureId));
-    const allResponses = await db.select().from(responses);
+    const questionIds = allQuestions.map(q => q.id);
+    const allResponses = questionIds.length > 0
+      ? await db.select().from(responses).where(inArray(responses.questionId, questionIds))
+      : [];
 
     return allQuestions
       .sort((a, b) => {
@@ -42,7 +45,10 @@ export class StatsService {
 
   async getDetailedStats(lectureId: string) {
     const stats = await this.getStats(lectureId);
-    const allResponses = await db.select().from(responses);
+    const questionIds = stats.map(s => s.question.id);
+    const allResponses = questionIds.length > 0
+      ? await db.select().from(responses).where(inArray(responses.questionId, questionIds))
+      : [];
 
     const detailed = stats.map(s => {
       const individualResponses = allResponses
@@ -71,7 +77,10 @@ export class StatsService {
 
   async exportCsv(lectureId: string): Promise<string> {
     const allQuestions = await db.select().from(questions).where(eq(questions.lectureId, lectureId));
-    const allResponses = await db.select().from(responses);
+    const questionIds = allQuestions.map(q => q.id);
+    const allResponses = questionIds.length > 0
+      ? await db.select().from(responses).where(inArray(responses.questionId, questionIds))
+      : [];
 
     const rows: string[] = ['question_text,question_type,phase,fingerprint,value,created_at'];
 
