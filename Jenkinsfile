@@ -242,6 +242,9 @@ EOF
                             ai-lecture-web=${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
                             -n ${NAMESPACE}
 
+                        kubectl rollout restart deployment/ai-lecture-api -n ${NAMESPACE}
+                        kubectl rollout restart deployment/ai-lecture-web -n ${NAMESPACE}
+
                         kubectl rollout status deployment/ai-lecture-api -n ${NAMESPACE} --timeout=5m
                         kubectl rollout status deployment/ai-lecture-web -n ${NAMESPACE} --timeout=5m
 

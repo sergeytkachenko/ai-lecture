@@ -33,7 +33,7 @@ spec:
                 name: ai-lecture-api-config
             - secretRef:
                 name: ai-lecture-api-secrets
-                optional: true
+                optional: false
           resources:
             requests:
               cpu: 200m
