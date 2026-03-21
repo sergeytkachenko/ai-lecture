@@ -105,7 +105,7 @@ async function submitVotes() {
     } else {
       // Show error to user for retry
       const errorDetails = err?.message || err?.toString() || 'Невідома помилка';
-      error.value = `Не вдалося надіслати відповіді: ${errorDetails}`;
+      error.value = `Не вдалося надіслати відповіді: ${errorDetails}. Оновіть сторінку і спробуйте ще раз.`;
     }
   } finally {
     submitting.value = false;
