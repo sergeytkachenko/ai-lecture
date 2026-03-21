@@ -16,6 +16,7 @@ const questions = ref<any[]>([]);
 const answers = ref<Record<string, string>>({});
 const submitted = ref(false);
 const submitting = ref(false);
+const error = ref<string | null>(null);
 
 
 async function getFingerprint(): Promise<string> {
@@ -80,6 +81,7 @@ async function submitVotes() {
     return;
   }
   submitting.value = true;
+  error.value = null;
   try {
     const data = questions.value.map(q => ({
       questionId: q.id,
@@ -100,8 +102,11 @@ async function submitVotes() {
     if (err?.message?.includes('400')) {
       console.log('[AudienceVote] duplicate vote detected, marking as submitted');
       submitted.value = true;
+    } else {
+      // Show error to user for retry
+      const errorDetails = err?.message || err?.toString() || 'Невідома помилка';
+      error.value = `Не вдалося надіслати відповіді: ${errorDetails}`;
     }
-    // Otherwise leave submitted = false so user can retry
   } finally {
     submitting.value = false;
   }
@@ -124,6 +129,7 @@ async function handleStatusChange(data: { status: string }) {
     lecture.value.status = data.status;
     submitted.value = false;
     answers.value = {};
+    error.value = null;
 
     const map: Record<string, string> = { pre_lecture: 'start', post_lecture: 'end' };
     const phase = map[data.status];
@@ -193,6 +199,16 @@ onUnmounted(() => {
               v-model="answers[q.id]"
             />
           </template>
+
+          <!-- Error message -->
+          <div v-if="error" class="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <div class="flex items-start gap-3">
+              <div class="text-2xl">⚠️</div>
+              <div class="flex-1">
+                <p class="text-red-800 font-medium">{{ error }}</p>
+              </div>
+            </div>
+          </div>
 
           <button
             @click="submitVotes"
