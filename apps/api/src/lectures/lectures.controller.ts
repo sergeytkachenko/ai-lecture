@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Param, Body, NotFoundException, Res } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Body, NotFoundException, Res, Logger } from '@nestjs/common';
 import { Response } from 'express';
 import { LecturesService } from './lectures.service';
 import { PollGateway } from '../gateway/poll.gateway';
@@ -11,6 +11,8 @@ const STATUS_TO_PHASE: Record<string, string> = {
 
 @Controller()
 export class LecturesController {
+  private readonly logger = new Logger(LecturesController.name);
+
   constructor(
     private lecturesService: LecturesService,
     private pollGateway: PollGateway,
@@ -38,11 +40,15 @@ export class LecturesController {
 
   @Get('lectures/:code/questions')
   async getQuestions(@Param('code') code: string) {
+    this.logger.log(`GET /lectures/${code}/questions`);
     const lecture = await this.lecturesService.findByCode(code);
     if (!lecture) throw new NotFoundException();
     const phase = STATUS_TO_PHASE[lecture.status];
+    this.logger.log(`Lecture status=${lecture.status} phase=${phase || 'none'}`);
     if (!phase) return [];
-    return this.lecturesService.getQuestionsForPhase(lecture.id, phase);
+    const questions = await this.lecturesService.getQuestionsForPhase(lecture.id, phase);
+    this.logger.log(`Returning ${questions.length} questions for phase=${phase}`);
+    return questions;
   }
 
   @Get('lectures/:code/stats')
@@ -66,8 +72,10 @@ export class LecturesController {
     @Param('adminToken') adminToken: string,
     @Body() body: { status: string },
   ) {
+    this.logger.log(`PATCH /admin/.../status newStatus=${body.status}`);
     const lecture = await this.lecturesService.updateStatus(adminToken, body.status);
     if (!lecture) throw new NotFoundException();
+    this.logger.log(`Status updated: lecture=${lecture.code} status=${lecture.status}, emitting lecture:status`);
     this.pollGateway.emitToRoom(lecture.code, 'lecture:status', { status: lecture.status });
     return { status: lecture.status };
   }
