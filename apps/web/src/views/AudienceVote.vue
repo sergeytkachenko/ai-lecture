@@ -18,10 +18,22 @@ const submitted = ref(false);
 const submitting = ref(false);
 
 
-function getFingerprint(): string {
+async function getFingerprint(): Promise<string> {
   let fp = localStorage.getItem('lp_fingerprint');
   if (!fp) {
-    fp = crypto.randomUUID();
+    // Get UUID from backend
+    try {
+      const result = await get('/utils/uuid');
+      fp = result.uuid;
+    } catch (err) {
+      console.error('[AudienceVote] Failed to get UUID from backend, using fallback', err);
+      // Fallback: generate UUID client-side
+      fp = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
     localStorage.setItem('lp_fingerprint', fp);
   }
   return fp;
@@ -73,7 +85,7 @@ async function submitVotes() {
       questionId: q.id,
       value: answers.value[q.id],
     }));
-    const fingerprint = getFingerprint();
+    const fingerprint = await getFingerprint();
     console.log('[AudienceVote] submitting %d responses fingerprint=%s data=%o', data.length, fingerprint, data);
     await post(`/lectures/${code}/responses`, {
       responses: data,
