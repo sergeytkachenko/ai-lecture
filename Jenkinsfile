@@ -36,7 +36,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout & Prepare') {
             agent { label 'jenkins-agent' }
             steps {
                 checkout scm
@@ -44,20 +44,11 @@ pipeline {
                     env.GIT_COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                     echo "Git commit hash: ${env.GIT_COMMIT_HASH}"
                 }
-                stash includes: 'apps/**,packages/**,k8s/**,package.json,pnpm-workspace.yaml,pnpm-lock.yaml,Jenkinsfile',
-                      excludes: '**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,*.log',
-                      name: 'source',
-                      useDefaultExcludes: true
-            }
-        }
 
-        stage('Create Secrets') {
-            agent { label 'jenkins-agent' }
-            steps {
+                // Validate credentials and create secret manifests in same stage
                 sh '''#!/bin/sh
                     set -ex
 
-                    # Validate required credentials are not empty
                     missing=""
                     [ -z "${DB_USERNAME}" ] && missing="${missing} ai-lecture-db-username"
                     [ -z "${DB_PASSWORD}" ] && missing="${missing} ai-lecture-db-password"
@@ -69,7 +60,6 @@ pipeline {
                         exit 1
                     fi
 
-                    # Create API secrets
                     cat > ai-lecture-api-secrets.yaml <<EOF
 apiVersion: v1
 kind: Secret
@@ -83,7 +73,6 @@ stringData:
   CORS_ORIGIN: "http://${SERVER_IP}:30093"
 EOF
 
-                    # Create PostgreSQL secrets
                     cat > ai-lecture-postgres-secret.yaml <<EOF
 apiVersion: v1
 kind: Secret
@@ -97,14 +86,15 @@ stringData:
   POSTGRES_DB: "${DB_DATABASE}"
 EOF
 
-                    # Create migration environment
                     cat > drizzle.env <<EOF
 export DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres.ai-lecture.svc.cluster.local:5432/${DB_DATABASE}
 EOF
-
-                    # Verify files were created
-                    ls -la ai-lecture-api-secrets.yaml ai-lecture-postgres-secret.yaml drizzle.env
                 '''
+
+                stash includes: 'apps/**,packages/**,k8s/**,package.json,pnpm-workspace.yaml,pnpm-lock.yaml,Jenkinsfile',
+                      excludes: '**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,*.log',
+                      name: 'source',
+                      useDefaultExcludes: true
                 stash includes: 'ai-lecture-api-secrets.yaml,ai-lecture-postgres-secret.yaml,drizzle.env',
                       name: 'secrets'
             }
@@ -130,76 +120,63 @@ EOF
                             echo "PostgreSQL already exists, skipping"
                         fi
 
-                        kubectl wait --for=condition=ready pod -l app=postgres -n ${NAMESPACE} --timeout=5m || true
-                        sleep 10
+                        kubectl wait --for=condition=ready pod -l app=postgres -n ${NAMESPACE} --timeout=5m
                     """
                 }
             }
         }
 
-        stage('Run Migrations') {
-            agent { label 'docker' }
-            steps {
-                unstash 'source'
-                unstash 'secrets'
-                container('docker') {
-                    sh '''
-                        . ./drizzle.env
-                        rm -f drizzle.env
-
-                        if [ -z "${DATABASE_URL}" ]; then
-                            echo "ERROR: DATABASE_URL is empty. Check that Jenkins credentials are configured."
-                            exit 1
-                        fi
-
-                        # Login to Docker Hub to avoid rate limits
-                        echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
-
-                        # Build a temporary migration image
-                        docker build --pull=false \
-                            -f apps/api/Dockerfile \
-                            -t ai-lecture-migrator:${GIT_COMMIT_HASH} \
-                            --target builder \
-                            .
-
-                        # Logout from Docker Hub
-                        docker logout
-
-                        # Run Drizzle migrations
-                        docker run --rm \
-                            -e "DATABASE_URL=${DATABASE_URL}" \
-                            --network host \
-                            ai-lecture-migrator:${GIT_COMMIT_HASH} \
-                            sh -c "cd apps/api && npx drizzle-kit push"
-                    '''
-                }
-            }
-        }
-
-        stage('Build & Push Images') {
+        stage('Migrate, Build & Push') {
             parallel {
-                stage('API Image') {
+                stage('API: Migrate, Build & Push') {
                     agent { label 'docker' }
                     steps {
                         unstash 'source'
+                        unstash 'secrets'
                         container('docker') {
-                            sh """
+                            sh '''
+                                . ./drizzle.env
+                                rm -f drizzle.env
+
+                                if [ -z "${DATABASE_URL}" ]; then
+                                    echo "ERROR: DATABASE_URL is empty. Check that Jenkins credentials are configured."
+                                    exit 1
+                                fi
+
                                 echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
 
-                                docker build \
-                                    --pull=false \
+                                # Build the full API image (includes builder stage)
+                                docker build --pull=false \
                                     -f apps/api/Dockerfile \
                                     -t ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
                                     .
-                                docker push ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
+
+                                # Run migrations using the builder stage from the same build cache
+                                docker build --pull=false \
+                                    -f apps/api/Dockerfile \
+                                    --target builder \
+                                    -t ai-lecture-migrator:${GIT_COMMIT_HASH} \
+                                    .
 
                                 docker logout
-                            """
+
+                                docker run --rm \
+                                    -e "DATABASE_URL=${DATABASE_URL}" \
+                                    --network host \
+                                    ai-lecture-migrator:${GIT_COMMIT_HASH} \
+                                    sh -c "cd apps/api && npx drizzle-kit push"
+
+                                # Push final image after successful migration
+                                docker push ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
+
+                                # Cleanup
+                                docker rmi ai-lecture-migrator:${GIT_COMMIT_HASH} || true
+                            '''
                         }
                     }
                 }
 
-                stage('Web Image') {
+                stage('Web: Build & Push') {
                     agent { label 'docker' }
                     steps {
                         unstash 'source'
@@ -229,11 +206,12 @@ EOF
                 unstash 'source'
                 container('kubectl') {
                     sh """
-                        kubectl apply -f k8s/api-service.yaml
-                        kubectl apply -f k8s/web-service.yaml
-                        kubectl apply -f k8s/api-pdb.yaml
-                        kubectl apply -f k8s/api-deployment.yaml
-                        kubectl apply -f k8s/web-deployment.yaml
+                        kubectl apply \
+                            -f k8s/api-service.yaml \
+                            -f k8s/web-service.yaml \
+                            -f k8s/api-pdb.yaml \
+                            -f k8s/api-deployment.yaml \
+                            -f k8s/web-deployment.yaml
 
                         kubectl set image deployment/ai-lecture-api \
                             ai-lecture-api=${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \

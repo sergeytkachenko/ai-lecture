@@ -3,12 +3,9 @@
 # Build stage
 FROM node:20-alpine AS build
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@9 --activate
 
 WORKDIR /app
-
-ARG VITE_API_URL=/api
-ENV VITE_API_URL=$VITE_API_URL
 
 # Copy workspace root files
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
@@ -24,6 +21,10 @@ RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
 # Copy source code
 COPY packages/shared/ packages/shared/
 COPY apps/web/ apps/web/
+
+# Build-time arg after deps install to preserve cache when only VITE_API_URL changes
+ARG VITE_API_URL=/api
+ENV VITE_API_URL=$VITE_API_URL
 
 # Build shared package then web
 RUN pnpm --filter @lecture-poll/shared build && \
