@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useApi } from '../composables/useApi';
+import { useSocketStore } from '../stores/socket';
 import BarChart from '../components/BarChart.vue';
 
 const route = useRoute();
 const adminToken = route.params.adminToken as string;
 const { get } = useApi();
+const socketStore = useSocketStore();
 
 const stats = ref<any[]>([]);
+const lecture = ref<any>(null);
 
 async function loadStats() {
   stats.value = await get(`/admin/${adminToken}/stats`);
@@ -29,7 +32,26 @@ function scaleValues(responses: any[], config: any): number[] {
   return Object.values(counts);
 }
 
-onMounted(loadStats);
+function handleStatsUpdate() {
+  loadStats();
+}
+
+onMounted(async () => {
+  lecture.value = await get(`/admin/${adminToken}`);
+  await loadStats();
+  if (lecture.value) {
+    socketStore.joinRoom(lecture.value.code);
+    socketStore.on('stats:update', handleStatsUpdate);
+    socketStore.on('lecture:status', handleStatsUpdate);
+    socketStore.on('battle:closed', handleStatsUpdate);
+  }
+});
+
+onUnmounted(() => {
+  socketStore.off('stats:update', handleStatsUpdate);
+  socketStore.off('lecture:status', handleStatsUpdate);
+  socketStore.off('battle:closed', handleStatsUpdate);
+});
 </script>
 
 <template>
