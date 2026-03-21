@@ -42,15 +42,19 @@ COPY apps/api/package.json apps/api/
 
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
-# Install production dependencies only
+# Install all dependencies (including dev for drizzle-kit migrations)
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
-    pnpm install --frozen-lockfile --prod
+    pnpm install --frozen-lockfile
 
 # Copy built shared package
 COPY --from=builder /app/packages/shared/dist packages/shared/dist
 
 # Copy built API
 COPY --from=builder --chown=nestjs:nodejs /app/apps/api/dist apps/api/dist
+
+# Copy drizzle config and schema for migrations
+COPY --from=builder --chown=nestjs:nodejs /app/apps/api/drizzle.config.ts apps/api/
+COPY --from=builder --chown=nestjs:nodejs /app/apps/api/src/db apps/api/src/db
 
 USER nestjs
 
