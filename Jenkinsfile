@@ -137,45 +137,6 @@ EOF
             }
         }
 
-        stage('Run Migrations') {
-            agent { label 'docker' }
-            steps {
-                unstash 'source'
-                unstash 'secrets'
-                container('docker') {
-                    sh '''
-                        . ./drizzle.env
-                        rm -f drizzle.env
-
-                        if [ -z "${DATABASE_URL}" ]; then
-                            echo "ERROR: DATABASE_URL is empty. Check that Jenkins credentials are configured."
-                            exit 1
-                        fi
-
-                        # Login to Docker Hub to avoid rate limits
-                        echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
-
-                        # Build a temporary migration image
-                        docker build --pull=false \
-                            -f apps/api/Dockerfile \
-                            -t ai-lecture-migrator:${GIT_COMMIT_HASH} \
-                            --target builder \
-                            .
-
-                        # Logout from Docker Hub
-                        docker logout
-
-                        # Run Drizzle migrations
-                        docker run --rm \
-                            -e "DATABASE_URL=${DATABASE_URL}" \
-                            --network host \
-                            ai-lecture-migrator:${GIT_COMMIT_HASH} \
-                            sh -c "cd apps/api && npx drizzle-kit push"
-                    '''
-                }
-            }
-        }
-
         stage('Build & Push Images') {
             parallel {
                 stage('API Image') {
@@ -219,6 +180,57 @@ EOF
                             """
                         }
                     }
+                }
+            }
+        }
+
+        stage('Run Migrations') {
+            agent { label 'kubectl' }
+            steps {
+                unstash 'source'
+                container('kubectl') {
+                    sh """
+                        # Create migration job
+                        cat > migration-job.yaml <<EOF
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration-${GIT_COMMIT_HASH}
+  namespace: ${NAMESPACE}
+spec:
+  ttlSecondsAfterFinished: 300
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
+          command: ["/bin/sh", "-c"]
+          args:
+            - "cd apps/api && npx drizzle-kit push"
+          envFrom:
+            - secretRef:
+                name: ai-lecture-api-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+EOF
+
+                        # Apply and wait for migration job
+                        kubectl apply -f migration-job.yaml
+                        kubectl wait --for=condition=complete --timeout=5m job/db-migration-${GIT_COMMIT_HASH} -n ${NAMESPACE}
+
+                        # Show migration logs
+                        kubectl logs -n ${NAMESPACE} -l job-name=db-migration-${GIT_COMMIT_HASH}
+
+                        # Clean up
+                        rm -f migration-job.yaml
+                    """
                 }
             }
         }
