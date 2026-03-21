@@ -1,0 +1,98 @@
+name: Trigger Jenkins Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-jenkins:
+    name: Trigger Jenkins Job
+    runs-on: ubuntu-latest
+    environment: default
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Load Jenkins credentials from 1Password
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          JENKINS_URL: op://k3s-infrastructure/jenkins-admin/website
+          JENKINS_USER: op://k3s-infrastructure/jenkins-admin/username
+          JENKINS_TOKEN: op://k3s-infrastructure/jenkins-admin/token
+
+      - name: Get Jenkins CSRF crumb
+        id: crumb
+        run: |
+          CRUMB_JSON=$(curl -sf -u "${JENKINS_USER}:${JENKINS_TOKEN}" \
+            "${JENKINS_URL}/crumbIssuer/api/json")
+          CRUMB=$(echo "$CRUMB_JSON" | jq -r '.crumb')
+          CRUMB_FIELD=$(echo "$CRUMB_JSON" | jq -r '.crumbRequestField')
+          echo "crumb=${CRUMB}" >> "$GITHUB_OUTPUT"
+          echo "field=${CRUMB_FIELD}" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Jenkins job
+        run: |
+          set -e
+
+          CRUMB="${{ steps.crumb.outputs.crumb }}"
+          CRUMB_FIELD="${{ steps.crumb.outputs.field }}"
+
+          JOB_NAME="ai-lecture/main"
+
+          echo "Triggering Jenkins job: ${JOB_NAME}"
+          echo "Branch: ${GITHUB_REF_NAME}"
+          echo "Commit: ${GITHUB_SHA}"
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -u "${JENKINS_USER}:${JENKINS_TOKEN}" \
+            -H "${CRUMB_FIELD}: ${CRUMB}" \
+            "${JENKINS_URL}/job/ai-lecture/job/main/build")
+
+          if [ "$HTTP_CODE" = "201" ] || [ "$HTTP_CODE" = "200" ]; then
+            echo "✓ Jenkins job triggered successfully (HTTP ${HTTP_CODE})"
+          else
+            echo "✗ Failed to trigger Jenkins job (HTTP ${HTTP_CODE})"
+            exit 1
+          fi
+
+      - name: Wait for Jenkins job to start
+        run: |
+          echo "Waiting 10 seconds for job to start..."
+          sleep 10
+
+      - name: Get latest build status
+        id: build_status
+        continue-on-error: true
+        run: |
+          BUILD_INFO=$(curl -sf -u "${JENKINS_USER}:${JENKINS_TOKEN}" \
+            "${JENKINS_URL}/job/ai-lecture/job/main/lastBuild/api/json")
+
+          BUILD_NUMBER=$(echo "$BUILD_INFO" | jq -r '.number')
+          BUILD_RESULT=$(echo "$BUILD_INFO" | jq -r '.result // "IN_PROGRESS"')
+          BUILD_URL=$(echo "$BUILD_INFO" | jq -r '.url')
+
+          echo "build_number=${BUILD_NUMBER}" >> "$GITHUB_OUTPUT"
+          echo "build_result=${BUILD_RESULT}" >> "$GITHUB_OUTPUT"
+          echo "build_url=${BUILD_URL}" >> "$GITHUB_OUTPUT"
+
+          echo "Build #${BUILD_NUMBER}: ${BUILD_RESULT}"
+          echo "URL: ${BUILD_URL}"
+
+      - name: Summary
+        run: |
+          echo "## Jenkins Build Triggered" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Job:** ai-lecture/main" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${GITHUB_REF_NAME}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${GITHUB_SHA}" >> $GITHUB_STEP_SUMMARY
+
+          if [ -n "${{ steps.build_status.outputs.build_number }}" ]; then
+            echo "**Build:** #${{ steps.build_status.outputs.build_number }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Status:** ${{ steps.build_status.outputs.build_result }}" >> $GITHUB_STEP_SUMMARY
+            echo "**URL:** ${{ steps.build_status.outputs.build_url }}" >> $GITHUB_STEP_SUMMARY
+          fi
