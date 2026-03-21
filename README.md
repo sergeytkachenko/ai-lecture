@@ -1,6 +1,6 @@
 # Lecture Poll
 
-Real-time audience polling for lectures. Speaker creates a session, shares a QR code, collects anonymous responses at the start and end of lecture, runs an AI-battle quiz during the lecture, and views live statistics on a projector.
+Real-time audience polling for lectures. Speaker creates a session, shares a QR code, collects anonymous responses at the start and end of lecture, and views live statistics on a projector.
 
 ## Tech Stack
 
@@ -41,9 +41,9 @@ pnpm dev
 1. **Create** — Speaker creates a lecture, gets a unique code & admin panel
 2. **Share QR** — Audience scans QR code to join on their phones
 3. **Start Poll** — Speaker starts pre-lecture survey (2 scale questions)
-4. **Lecture + AI Battle** — During the lecture, speaker pushes clinical case questions; audience votes in real-time
+4. **Lecture** — Lecture proceeds
 5. **End Poll** — Speaker starts post-lecture survey (2 scale + 1 single choice + 1 rating)
-6. **See Results** — Comparison stats on projector: before vs after with delta arrows, battle results, pie charts
+6. **See Results** — Comparison stats on projector: before vs after with delta arrows, pie charts
 
 ## Project Structure
 

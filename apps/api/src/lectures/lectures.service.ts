@@ -53,34 +53,4 @@ export class LecturesService {
     return db.select().from(questions).where(eq(questions.lectureId, lectureId));
   }
 
-  async createBattleQuestion(lectureId: string, text: string, options: string[]) {
-    const existing = await db
-      .select()
-      .from(questions)
-      .where(eq(questions.lectureId, lectureId))
-      .then(rows => rows.filter(q => q.phase === 'battle'));
-
-    const [question] = await db
-      .insert(questions)
-      .values({
-        lectureId,
-        text,
-        type: 'single_choice',
-        phase: 'battle',
-        order: existing.length + 1,
-        config: { options },
-        isActive: true,
-      })
-      .returning();
-    return question;
-  }
-
-  async closeBattleQuestion(questionId: string) {
-    const [question] = await db
-      .update(questions)
-      .set({ isActive: false })
-      .where(eq(questions.id, questionId))
-      .returning();
-    return question;
-  }
 }

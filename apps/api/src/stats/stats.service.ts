@@ -11,7 +11,7 @@ export class StatsService {
 
     return allQuestions
       .sort((a, b) => {
-        const phaseOrder = { start: 0, end: 1, battle: 2 };
+        const phaseOrder = { start: 0, end: 1 };
         const pa = phaseOrder[a.phase] ?? 99;
         const pb = phaseOrder[b.phase] ?? 99;
         if (pa !== pb) return pa - pb;
