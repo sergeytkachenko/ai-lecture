@@ -43,9 +43,9 @@ COPY apps/api/package.json apps/api/
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Install production dependencies only
+# Install all dependencies (including dev for drizzle-kit migrations)
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
-    pnpm install --frozen-lockfile --prod
+    pnpm install --frozen-lockfile
 
 # Copy built shared package
 COPY --from=builder /app/packages/shared/dist packages/shared/dist
