@@ -137,45 +137,49 @@ EOF
             }
         }
 
-        stage('Build API Image') {
-            agent { label 'docker' }
-            steps {
-                unstash 'source'
-                container('docker') {
-                    sh """
-                        echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+        stage('Build & Push Images') {
+            parallel {
+                stage('API Image') {
+                    agent { label 'docker' }
+                    steps {
+                        unstash 'source'
+                        container('docker') {
+                            sh """
+                                echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
 
-                        docker build \
-                            --pull=false \
-                            -f apps/api/Dockerfile \
-                            -t ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
-                            .
-                        docker push ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
+                                docker build \
+                                    --pull=false \
+                                    -f apps/api/Dockerfile \
+                                    -t ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
+                                    .
+                                docker push ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
 
-                        docker logout
-                    """
+                                docker logout
+                            """
+                        }
+                    }
                 }
-            }
-        }
 
-        stage('Build Web Image') {
-            agent { label 'docker' }
-            steps {
-                unstash 'source'
-                container('docker') {
-                    sh """
-                        echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+                stage('Web Image') {
+                    agent { label 'docker' }
+                    steps {
+                        unstash 'source'
+                        container('docker') {
+                            sh """
+                                echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
 
-                        docker build \
-                            --pull=false \
-                            --build-arg VITE_API_URL=/api \
-                            -f apps/web/Dockerfile \
-                            -t ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
-                            .
-                        docker push ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH}
+                                docker build \
+                                    --pull=false \
+                                    --build-arg VITE_API_URL=/api \
+                                    -f apps/web/Dockerfile \
+                                    -t ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
+                                    .
+                                docker push ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH}
 
-                        docker logout
-                    """
+                                docker logout
+                            """
+                        }
+                    }
                 }
             }
         }
