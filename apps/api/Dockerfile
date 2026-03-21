@@ -53,6 +53,10 @@ COPY --from=builder /app/packages/shared/dist packages/shared/dist
 # Copy built API
 COPY --from=builder --chown=nestjs:nodejs /app/apps/api/dist apps/api/dist
 
+# Copy drizzle config and schema for migrations
+COPY --from=builder --chown=nestjs:nodejs /app/apps/api/drizzle.config.ts apps/api/
+COPY --from=builder --chown=nestjs:nodejs /app/apps/api/src/db apps/api/src/db
+
 USER nestjs
 
 EXPOSE 3000
