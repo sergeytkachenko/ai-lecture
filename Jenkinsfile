@@ -36,7 +36,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout & Prepare') {
             agent { label 'jenkins-agent' }
             steps {
                 checkout scm
@@ -44,20 +44,11 @@ pipeline {
                     env.GIT_COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                     echo "Git commit hash: ${env.GIT_COMMIT_HASH}"
                 }
-                stash includes: 'apps/**,packages/**,k8s/**,package.json,pnpm-workspace.yaml,pnpm-lock.yaml,Jenkinsfile',
-                      excludes: '**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,*.log',
-                      name: 'source',
-                      useDefaultExcludes: true
-            }
-        }
 
-        stage('Create Secrets') {
-            agent { label 'jenkins-agent' }
-            steps {
+                // Validate credentials and create secret manifests in same stage
                 sh '''#!/bin/sh
                     set -ex
 
-                    # Validate required credentials are not empty
                     missing=""
                     [ -z "${DB_USERNAME}" ] && missing="${missing} ai-lecture-db-username"
                     [ -z "${DB_PASSWORD}" ] && missing="${missing} ai-lecture-db-password"
@@ -69,7 +60,6 @@ pipeline {
                         exit 1
                     fi
 
-                    # Create API secrets
                     cat > ai-lecture-api-secrets.yaml <<EOF
 apiVersion: v1
 kind: Secret
@@ -83,7 +73,6 @@ stringData:
   CORS_ORIGIN: "http://${SERVER_IP}:30093"
 EOF
 
-                    # Create PostgreSQL secrets
                     cat > ai-lecture-postgres-secret.yaml <<EOF
 apiVersion: v1
 kind: Secret
@@ -96,16 +85,13 @@ stringData:
   POSTGRES_PASSWORD: "${DB_PASSWORD}"
   POSTGRES_DB: "${DB_DATABASE}"
 EOF
-
-                    # Create migration environment
-                    cat > drizzle.env <<EOF
-export DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres.ai-lecture.svc.cluster.local:5432/${DB_DATABASE}
-EOF
-
-                    # Verify files were created
-                    ls -la ai-lecture-api-secrets.yaml ai-lecture-postgres-secret.yaml drizzle.env
                 '''
-                stash includes: 'ai-lecture-api-secrets.yaml,ai-lecture-postgres-secret.yaml,drizzle.env',
+
+                stash includes: 'apps/**,packages/**,k8s/**,package.json,pnpm-workspace.yaml,pnpm-lock.yaml,Jenkinsfile',
+                      excludes: '**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,*.log',
+                      name: 'source',
+                      useDefaultExcludes: true
+                stash includes: 'ai-lecture-api-secrets.yaml,ai-lecture-postgres-secret.yaml',
                       name: 'secrets'
             }
         }
@@ -130,8 +116,7 @@ EOF
                             echo "PostgreSQL already exists, skipping"
                         fi
 
-                        kubectl wait --for=condition=ready pod -l app=postgres -n ${NAMESPACE} --timeout=5m || true
-                        sleep 10
+                        kubectl wait --for=condition=ready pod -l app=postgres -n ${NAMESPACE} --timeout=5m
                     """
                 }
             }
@@ -241,11 +226,12 @@ EOF
                 unstash 'source'
                 container('kubectl') {
                     sh """
-                        kubectl apply -f k8s/api-service.yaml
-                        kubectl apply -f k8s/web-service.yaml
-                        kubectl apply -f k8s/api-pdb.yaml
-                        kubectl apply -f k8s/api-deployment.yaml
-                        kubectl apply -f k8s/web-deployment.yaml
+                        kubectl apply \
+                            -f k8s/api-service.yaml \
+                            -f k8s/web-service.yaml \
+                            -f k8s/api-pdb.yaml \
+                            -f k8s/api-deployment.yaml \
+                            -f k8s/web-deployment.yaml
 
                         kubectl set image deployment/ai-lecture-api \
                             ai-lecture-api=${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \

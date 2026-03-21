@@ -3,7 +3,7 @@
 # Build stage
 FROM node:20-alpine AS builder
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@9 --activate
 
 WORKDIR /app
 
@@ -27,11 +27,10 @@ RUN pnpm --filter @lecture-poll/shared build && \
     pnpm --filter api build
 
 # Production stage
-FROM node:20-alpine
+FROM node:20-alpine AS production
 
-RUN apk add --no-cache dumb-init
-
-RUN addgroup -g 1001 -S nodejs && \
+RUN apk add --no-cache dumb-init && \
+    addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001
 
 WORKDIR /app
@@ -41,7 +40,7 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY packages/shared/package.json packages/shared/
 COPY apps/api/package.json apps/api/
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@9 --activate
 
 # Install all dependencies (including dev for drizzle-kit migrations)
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
