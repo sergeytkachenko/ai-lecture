@@ -48,40 +48,67 @@ const allAnswered = computed(() => {
 });
 
 async function loadLecture() {
+  console.log('[AudienceVote] loadLecture code=%s', code);
   lecture.value = await get(`/lectures/${code}`);
+  console.log('[AudienceVote] lecture loaded status=%s id=%s', lecture.value?.status, lecture.value?.id);
 }
 
 async function loadQuestions() {
+  console.log('[AudienceVote] loadQuestions phase=%s hasVoted=%s', currentPhase.value, currentPhase.value ? hasVotedPhase(currentPhase.value) : 'n/a');
   if (currentPhase.value && !hasVotedPhase(currentPhase.value)) {
     questions.value = await get(`/lectures/${code}/questions`);
+    console.log('[AudienceVote] questions loaded count=%d ids=%s', questions.value.length, questions.value.map(q => q.id).join(','));
   }
 }
 
 async function submitVotes() {
-  if (!allAnswered.value || submitting.value) return;
+  console.log('[AudienceVote] submitVotes called allAnswered=%s submitting=%s phase=%s', allAnswered.value, submitting.value, currentPhase.value);
+  if (!allAnswered.value || submitting.value) {
+    console.log('[AudienceVote] submitVotes skipped: allAnswered=%s submitting=%s', allAnswered.value, submitting.value);
+    return;
+  }
   submitting.value = true;
   try {
     const data = questions.value.map(q => ({
       questionId: q.id,
       value: answers.value[q.id],
     }));
+    const fingerprint = getFingerprint();
+    console.log('[AudienceVote] submitting %d responses fingerprint=%s data=%o', data.length, fingerprint, data);
     await post(`/lectures/${code}/responses`, {
       responses: data,
-      fingerprint: getFingerprint(),
+      fingerprint,
     });
+    console.log('[AudienceVote] responses submitted successfully, marking phase=%s as voted', currentPhase.value);
     markVotedPhase(currentPhase.value!);
     submitted.value = true;
-  } catch {
-    // Already voted or error
-    submitted.value = true;
+  } catch (err: any) {
+    console.error('[AudienceVote] submitVotes error:', err?.message || err);
+    // Only mark as submitted if user already voted (duplicate)
+    if (err?.message?.includes('400')) {
+      console.log('[AudienceVote] duplicate vote detected, marking as submitted');
+      submitted.value = true;
+    }
+    // Otherwise leave submitted = false so user can retry
   } finally {
     submitting.value = false;
   }
 }
 
 
-function handleStatusChange(data: { status: string }) {
+async function handleStatusChange(data: { status: string }) {
+  console.log('[AudienceVote] handleStatusChange newStatus=%s currentStatus=%s', data.status, status.value);
   if (lecture.value) {
+    const previousPhase = currentPhase.value;
+
+    // Auto-submit if user answered all questions but hasn't submitted yet
+    if (previousPhase && !submitted.value && !hasVotedPhase(previousPhase) && allAnswered.value) {
+      console.log('[AudienceVote] auto-submitting answers before status transition (phase=%s, answeredQuestions=%d)', previousPhase, questions.value.length);
+      await submitVotes();
+    } else {
+      console.log('[AudienceVote] no auto-submit: previousPhase=%s submitted=%s hasVoted=%s allAnswered=%s', previousPhase, submitted.value, previousPhase ? hasVotedPhase(previousPhase) : 'n/a', allAnswered.value);
+    }
+
     lecture.value.status = data.status;
     submitted.value = false;
     answers.value = {};
@@ -89,6 +116,7 @@ function handleStatusChange(data: { status: string }) {
     const map: Record<string, string> = { pre_lecture: 'start', post_lecture: 'end' };
     const phase = map[data.status];
     if (phase && !hasVotedPhase(phase)) {
+      console.log('[AudienceVote] loading questions for new phase=%s', phase);
       loadQuestions();
     }
   }
