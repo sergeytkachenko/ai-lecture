@@ -208,7 +208,7 @@ spec:
           image: ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
           command: ["/bin/sh", "-c"]
           args:
-            - "cd apps/api && npx drizzle-kit push"
+            - "cd apps/api && npx drizzle-kit push --config=./drizzle.config.ts"
           envFrom:
             - secretRef:
                 name: ai-lecture-api-secrets
