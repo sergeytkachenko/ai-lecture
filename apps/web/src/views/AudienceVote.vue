@@ -71,17 +71,27 @@ async function submitVotes() {
     });
     markVotedPhase(currentPhase.value!);
     submitted.value = true;
-  } catch {
-    // Already voted or error
-    submitted.value = true;
+  } catch (err: any) {
+    // Only mark as submitted if user already voted (duplicate)
+    if (err?.message?.includes('400')) {
+      submitted.value = true;
+    }
+    // Otherwise leave submitted = false so user can retry
   } finally {
     submitting.value = false;
   }
 }
 
 
-function handleStatusChange(data: { status: string }) {
+async function handleStatusChange(data: { status: string }) {
   if (lecture.value) {
+    const previousPhase = currentPhase.value;
+
+    // Auto-submit if user answered all questions but hasn't submitted yet
+    if (previousPhase && !submitted.value && !hasVotedPhase(previousPhase) && allAnswered.value) {
+      await submitVotes();
+    }
+
     lecture.value.status = data.status;
     submitted.value = false;
     answers.value = {};
