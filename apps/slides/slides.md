@@ -18,6 +18,7 @@ htmlAttrs:
 <style src="./styles/theme.css"></style>
 
 <ThemeSwitcher />
+<ExportButton />
 
 # Людина & AI
 
