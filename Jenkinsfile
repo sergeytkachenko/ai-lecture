@@ -125,64 +125,64 @@ EOF
         stage('Build & Push Images') {
             parallel {
                 stage('API Image') {
-                    agent { label 'docker' }
+                    agent { label 'kaniko' }
                     steps {
                         unstash 'source'
-                        container('docker') {
+                        container('kaniko') {
                             sh """
-                                echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+                                mkdir -p /kaniko/.docker
+                                echo '{"auths":{"'${REGISTRY}'":{},"registry-1.docker.io":{"username":"'${DOCKERHUB_USERNAME}'","password":"'${DOCKERHUB_TOKEN}'"}}}' > /kaniko/.docker/config.json
 
-                                docker build \
-                                    --pull=false \
-                                    -f apps/api/Dockerfile \
-                                    -t ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
-                                    .
-                                docker push ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}
-
-                                docker logout
+                                /kaniko/executor \
+                                    --context=dir:///home/jenkins/agent/workspace/${JOB_NAME} \
+                                    --dockerfile=apps/api/Dockerfile \
+                                    --destination=${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
+                                    --insecure \
+                                    --skip-tls-verify \
+                                    --cache=true
                             """
                         }
                     }
                 }
 
                 stage('Web Image') {
-                    agent { label 'docker' }
+                    agent { label 'kaniko' }
                     steps {
                         unstash 'source'
-                        container('docker') {
+                        container('kaniko') {
                             sh """
-                                echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+                                mkdir -p /kaniko/.docker
+                                echo '{"auths":{"'${REGISTRY}'":{},"registry-1.docker.io":{"username":"'${DOCKERHUB_USERNAME}'","password":"'${DOCKERHUB_TOKEN}'"}}}' > /kaniko/.docker/config.json
 
-                                docker build \
-                                    --pull=false \
-                                    --build-arg VITE_API_URL=/api \
-                                    -f apps/web/Dockerfile \
-                                    -t ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
-                                    .
-                                docker push ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH}
-
-                                docker logout
+                                /kaniko/executor \
+                                    --context=dir:///home/jenkins/agent/workspace/${JOB_NAME} \
+                                    --dockerfile=apps/web/Dockerfile \
+                                    --destination=${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
+                                    --build-arg=VITE_API_URL=/api \
+                                    --insecure \
+                                    --skip-tls-verify \
+                                    --cache=true
                             """
                         }
                     }
                 }
 
                 stage('Slides Image') {
-                    agent { label 'docker' }
+                    agent { label 'kaniko' }
                     steps {
                         unstash 'source'
-                        container('docker') {
+                        container('kaniko') {
                             sh """
-                                echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+                                mkdir -p /kaniko/.docker
+                                echo '{"auths":{"'${REGISTRY}'":{},"registry-1.docker.io":{"username":"'${DOCKERHUB_USERNAME}'","password":"'${DOCKERHUB_TOKEN}'"}}}' > /kaniko/.docker/config.json
 
-                                docker build \
-                                    --pull=false \
-                                    -f apps/slides/Dockerfile \
-                                    -t ${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH} \
-                                    .
-                                docker push ${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH}
-
-                                docker logout
+                                /kaniko/executor \
+                                    --context=dir:///home/jenkins/agent/workspace/${JOB_NAME} \
+                                    --dockerfile=apps/slides/Dockerfile \
+                                    --destination=${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH} \
+                                    --insecure \
+                                    --skip-tls-verify \
+                                    --cache=true
                             """
                         }
                     }
