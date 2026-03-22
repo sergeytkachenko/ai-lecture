@@ -107,7 +107,7 @@ onMounted(() => {
   gap: 0.6rem;
   padding: 0.65rem 0.85rem;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card-bg);
   border-left: 3px solid;
   transition: all 0.3s ease;
   animation: slideInLeft 0.5s ease-out backwards;
@@ -123,22 +123,22 @@ onMounted(() => {
 
 .stat-card.average-user {
   border-left-color: #10b981;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(255, 255, 255, 0.02));
+  background: var(--green-tint-bg);
 }
 
 .stat-card.weekly {
   border-left-color: #3b82f6;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(255, 255, 255, 0.02));
+  background: var(--blue-tint-bg);
 }
 
 .stat-card.heavy-user {
   border-left-color: #f59e0b;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(255, 255, 255, 0.02));
+  background: var(--orange-tint-bg);
 }
 
 .stat-card:hover {
   transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--card-bg-hover);
 }
 
 .icon-wrapper {
@@ -187,14 +187,14 @@ onMounted(() => {
 
 .stat-label {
   font-size: 0.7rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .stat-value {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #e5e7eb;
+  color: var(--text-primary);
 }
 
 .calendar-section {
@@ -202,9 +202,9 @@ onMounted(() => {
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card-bg);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
 }
 
 .calendar-header {
@@ -225,7 +225,7 @@ onMounted(() => {
 
 .insight-text {
   font-size: 0.75rem;
-  color: #e5e7eb;
+  color: var(--text-primary);
   line-height: 1.4;
 }
 
@@ -243,7 +243,7 @@ onMounted(() => {
 
 .week-title {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
   font-weight: 500;
   text-align: center;
 }
@@ -259,9 +259,9 @@ onMounted(() => {
 
 .hour-cell {
   aspect-ratio: 1;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--cell-bg);
   border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid var(--cell-border);
   transition: all 0.3s ease;
   min-width: 60px;
   min-height: 60px;
@@ -291,18 +291,18 @@ onMounted(() => {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
 }
 
 .legend-box {
   width: 14px;
   height: 14px;
   border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--legend-border);
 }
 
 .legend-box.regular {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--cell-bg);
 }
 
 .legend-box.saved {

@@ -88,7 +88,7 @@ const withAiTasks = ref([
 
 .subtitle {
   font-size: 0.9rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
   margin: 0;
   font-style: italic;
 }
@@ -106,16 +106,16 @@ const withAiTasks = ref([
   gap: 0.75rem;
   padding: 0.75rem;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--panel-bg);
   min-height: 280px;
 }
 
 .without-ai {
-  border: 1px solid rgba(239, 68, 68, 0.5);
+  border: 1px solid var(--without-ai-border);
 }
 
 .with-ai {
-  border: 1px solid rgba(16, 185, 129, 0.5);
+  border: 1px solid var(--with-ai-border);
 }
 
 .panel-header {
@@ -134,7 +134,7 @@ const withAiTasks = ref([
 
 .large-icon {
   font-size: 2.5rem;
-  color: #e5e7eb;
+  color: var(--icon-large-color);
   animation: fadeIn 0.8s ease-out;
 }
 
@@ -144,7 +144,7 @@ const withAiTasks = ref([
   right: -0.5rem;
   font-size: 1.2rem;
   color: #10b981;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--ai-badge-bg);
   border-radius: 50%;
   padding: 0.15rem;
   animation: pulse 2s ease-in-out infinite;
@@ -153,7 +153,7 @@ const withAiTasks = ref([
 .panel-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #e5e7eb;
+  color: var(--text-primary);
   text-align: center;
 }
 
@@ -174,11 +174,11 @@ const withAiTasks = ref([
 }
 
 .without-ai .task-item {
-  color: #fca5a5;
+  color: var(--without-ai-text);
 }
 
 .with-ai .task-item {
-  color: #86efac;
+  color: var(--with-ai-text);
 }
 
 .task-icon {
@@ -199,7 +199,7 @@ const withAiTasks = ref([
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
+  color: var(--text-secondary);
 }
 
 .divider .material-icons {
@@ -212,8 +212,8 @@ const withAiTasks = ref([
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  background: rgba(59, 130, 246, 0.15);
-  border: 1px solid rgba(59, 130, 246, 0.4);
+  background: var(--bottom-msg-bg);
+  border: 1px solid var(--bottom-msg-border);
   border-radius: 12px;
   animation: fadeIn 1s ease-out 0.8s backwards;
 }
@@ -227,7 +227,7 @@ const withAiTasks = ref([
 .bottom-message p {
   margin: 0;
   font-size: 0.85rem;
-  color: #e5e7eb;
+  color: var(--text-primary);
   line-height: 1.5;
   font-weight: 500;
 }

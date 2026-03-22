@@ -24,17 +24,26 @@ import { ref, onMounted } from 'vue'
 
 const currentTheme = ref('light')
 
+const applyTheme = (theme: string) => {
+  document.documentElement.setAttribute('data-theme', theme)
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}
+
 const toggleTheme = () => {
   const newTheme = currentTheme.value === 'light' ? 'dark' : 'light'
   currentTheme.value = newTheme
-  document.documentElement.setAttribute('data-theme', newTheme)
+  applyTheme(newTheme)
   localStorage.setItem('slidev-theme', newTheme)
 }
 
 onMounted(() => {
   const savedTheme = localStorage.getItem('slidev-theme') || 'light'
   currentTheme.value = savedTheme
-  document.documentElement.setAttribute('data-theme', savedTheme)
+  applyTheme(savedTheme)
 })
 </script>
 
