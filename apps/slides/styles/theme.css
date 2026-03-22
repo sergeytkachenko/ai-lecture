@@ -1,3 +1,91 @@
+/* Theme variables */
+:root,
+[data-theme="dark"] {
+  --slide-bg: #121212;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: rgba(255, 255, 255, 0.7);
+
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-bg-hover: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.05);
+
+  --example-bg: rgba(0, 0, 0, 0.2);
+  --example-border: rgba(255, 255, 255, 0.2);
+
+  --quote-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  --quote-border: rgba(59, 130, 246, 0.3);
+
+  --cell-bg: rgba(255, 255, 255, 0.08);
+  --cell-border: rgba(255, 255, 255, 0.15);
+  --legend-border: rgba(255, 255, 255, 0.2);
+
+  --green-tint-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(255, 255, 255, 0.02));
+  --blue-tint-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(255, 255, 255, 0.02));
+  --orange-tint-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(255, 255, 255, 0.02));
+
+  --panel-bg: rgba(255, 255, 255, 0.05);
+  --without-ai-border: rgba(239, 68, 68, 0.5);
+  --with-ai-border: rgba(16, 185, 129, 0.5);
+  --without-ai-text: #fca5a5;
+  --with-ai-text: #86efac;
+  --icon-large-color: #e5e7eb;
+  --ai-badge-bg: rgba(0, 0, 0, 0.8);
+  --bottom-msg-bg: rgba(59, 130, 246, 0.15);
+  --bottom-msg-border: rgba(59, 130, 246, 0.4);
+
+  --theme-switcher-bg: rgba(255, 255, 255, 0.1);
+  --theme-switcher-border: rgba(255, 255, 255, 0.2);
+  --theme-switcher-text: #e5e7eb;
+  --theme-switcher-hover-bg: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] {
+  --slide-bg: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-muted: rgba(0, 0, 0, 0.6);
+
+  --card-bg: rgba(0, 0, 0, 0.03);
+  --card-bg-hover: rgba(0, 0, 0, 0.06);
+  --card-border: rgba(0, 0, 0, 0.08);
+
+  --example-bg: rgba(0, 0, 0, 0.05);
+  --example-border: rgba(0, 0, 0, 0.15);
+
+  --quote-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+  --quote-border: rgba(59, 130, 246, 0.4);
+
+  --cell-bg: rgba(0, 0, 0, 0.06);
+  --cell-border: rgba(0, 0, 0, 0.12);
+  --legend-border: rgba(0, 0, 0, 0.15);
+
+  --green-tint-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(0, 0, 0, 0.01));
+  --blue-tint-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(0, 0, 0, 0.01));
+  --orange-tint-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(0, 0, 0, 0.01));
+
+  --panel-bg: rgba(0, 0, 0, 0.03);
+  --without-ai-border: rgba(239, 68, 68, 0.6);
+  --with-ai-border: rgba(16, 185, 129, 0.6);
+  --without-ai-text: #b91c1c;
+  --with-ai-text: #047857;
+  --icon-large-color: #374151;
+  --ai-badge-bg: rgba(255, 255, 255, 0.9);
+  --bottom-msg-bg: rgba(59, 130, 246, 0.1);
+  --bottom-msg-border: rgba(59, 130, 246, 0.3);
+
+  --theme-switcher-bg: rgba(0, 0, 0, 0.05);
+  --theme-switcher-border: rgba(0, 0, 0, 0.15);
+  --theme-switcher-text: #374151;
+  --theme-switcher-hover-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Apply theme background to slides */
+[data-theme="light"] .slidev-layout {
+  background: var(--slide-bg) !important;
+  color: var(--text-primary) !important;
+}
+
 /* Font styles */
 .slidev-layout {
 }
@@ -55,7 +143,7 @@
 .principle-card {
   padding: 1rem;
   border-radius: 0.375rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card-bg);
   border-left: 3px solid;
   transition: all 0.3s ease;
   height: 100%;
@@ -64,7 +152,7 @@
 }
 
 .principle-card:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--card-bg-hover);
   transform: translateY(-2px);
 }
 
@@ -132,9 +220,9 @@
   opacity: 0.7;
   font-size: 0.85rem;
   padding: 0.5rem 0.75rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--example-bg);
   border-radius: 0.25rem;
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: 2px solid var(--example-border);
   margin-top: auto;
   line-height: 1.3;
 }
@@ -145,9 +233,9 @@
   font-size: 1.25rem;
   font-weight: 700;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  background: var(--quote-bg);
   border-radius: 0.375rem;
-  border: 2px solid rgba(59, 130, 246, 0.3);
+  border: 2px solid var(--quote-border);
   margin-bottom: 0.75rem;
   line-height: 1.3;
 }
