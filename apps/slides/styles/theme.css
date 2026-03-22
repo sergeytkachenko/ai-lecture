@@ -1,4 +1,75 @@
-/* Principle Cards - 6 Principles of Good Prompting - Compact View */
+/* ========================================
+   COMPACT BOX SYSTEM - Unified Styles
+   ======================================== */
+
+/* Base compact box - shared styles */
+.compact-box {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border-left: 4px solid currentColor;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+/* Color variants for compact boxes */
+.compact-box--blue {
+  background: rgba(59, 130, 246, 0.08);
+  border-left-color: #3b82f6;
+}
+
+.compact-box--green {
+  background: rgba(16, 185, 129, 0.08);
+  border-left-color: #10b981;
+}
+
+.compact-box--red {
+  background: rgba(239, 68, 68, 0.08);
+  border-left-color: #ef4444;
+}
+
+.compact-box--gray {
+  background: rgba(156, 163, 175, 0.08);
+  border-left-color: #9ca3af;
+}
+
+.compact-box--purple {
+  background: rgba(139, 92, 246, 0.08);
+  border-left-color: #8b5cf6;
+}
+
+.compact-box--orange {
+  background: rgba(245, 158, 11, 0.08);
+  border-left-color: #f59e0b;
+}
+
+.compact-box--cyan {
+  background: rgba(6, 182, 212, 0.08);
+  border-left-color: #06b6d4;
+}
+
+.compact-box--pink {
+  background: rgba(236, 72, 153, 0.08);
+  border-left-color: #ec4899;
+}
+
+/* Style modifiers */
+.compact-box--italic {
+  font-style: italic;
+}
+
+.compact-box--small {
+  font-size: 0.75rem;
+}
+
+.compact-box--no-margin {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   PRINCIPLE CARDS - 6 Principles Grid
+   ======================================== */
+
 .principle-card {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
@@ -56,7 +127,7 @@
   line-height: 1.3;
 }
 
-/* Color variants */
+/* Principle card color variants */
 .principle-card--blue {
   border-color: #3b82f6;
 }
@@ -135,7 +206,11 @@
   border-left-color: #ec4899;
 }
 
-/* Accent boxes - already used in slides */
+/* ========================================
+   LEGACY BOXES - For backwards compatibility
+   ======================================== */
+
+/* Accent boxes - legacy, larger padding */
 .accent-box {
   padding: 1rem 1.25rem;
   border-radius: 8px;
@@ -158,45 +233,10 @@
   border-left-color: #9ca3af;
 }
 
-/* Ethics boxes - compact view */
-.ethics-box {
-  padding: 0.5rem 0.85rem;
-  border-radius: 8px;
-  background: rgba(239, 68, 68, 0.08);
-  border-left: 4px solid #ef4444;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
+/* ========================================
+   SECTION BADGE
+   ======================================== */
 
-.ethics-box--red {
-  background: rgba(239, 68, 68, 0.08);
-  border-left-color: #ef4444;
-}
-
-/* Demo boxes - compact view for virtual client trainer slide */
-.demo-box {
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border-left: 4px solid currentColor;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  font-style: italic;
-  margin-top: 0.5rem;
-}
-
-.demo-box--gray {
-  background: rgba(156, 163, 175, 0.08);
-  border-left-color: #9ca3af;
-}
-
-.demo-box--green {
-  background: rgba(16, 185, 129, 0.08);
-  border-left-color: #10b981;
-  font-size: 0.8rem;
-}
-
-/* Section badge */
 .section-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
