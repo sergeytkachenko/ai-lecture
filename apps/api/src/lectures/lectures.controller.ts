@@ -34,6 +34,7 @@ export class LecturesController {
       speakerName: lecture.speakerName,
       code: lecture.code,
       status: lecture.status,
+      presentationLink: lecture.presentationLink,
       createdAt: lecture.createdAt,
     };
   }
@@ -72,6 +73,16 @@ export class LecturesController {
     if (!lecture) throw new NotFoundException();
     const allQuestions = await this.lecturesService.getQuestionsByLecture(lecture.id);
     return { ...lecture, questions: allQuestions };
+  }
+
+  @Patch('admin/:adminToken/presentation-link')
+  async updatePresentationLink(
+    @Param('adminToken') adminToken: string,
+    @Body() body: { presentationLink: string | null },
+  ) {
+    const lecture = await this.lecturesService.updatePresentationLink(adminToken, body.presentationLink);
+    if (!lecture) throw new NotFoundException();
+    return { presentationLink: lecture.presentationLink };
   }
 
   @Patch('admin/:adminToken/status')

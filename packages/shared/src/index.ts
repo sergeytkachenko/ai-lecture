@@ -36,6 +36,7 @@ export interface LectureDto {
   speakerName: string;
   code: string;
   status: LectureStatus;
+  presentationLink: string | null;
   createdAt: string;
 }
 
