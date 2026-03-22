@@ -58,6 +58,13 @@ export class LecturesController {
     return this.statsService.getStats(lecture.id);
   }
 
+  @Get('lectures/:code/slides')
+  async getSlides(@Param('code') code: string, @Res() res: Response) {
+    const lecture = await this.lecturesService.findByCode(code);
+    if (!lecture) throw new NotFoundException();
+    res.redirect('/slides/');
+  }
+
   // Admin routes
   @Get('admin/:adminToken')
   async getAdmin(@Param('adminToken') adminToken: string) {
