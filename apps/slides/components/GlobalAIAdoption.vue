@@ -10,7 +10,7 @@
               cy="100"
               r="80"
               fill="none"
-              stroke="rgba(255, 255, 255, 0.05)"
+              stroke="rgba(148, 163, 184, 0.2)"
               stroke-width="24"
             />
             <circle
@@ -248,7 +248,7 @@ const dashOffset = computed(() => circumference - (circumference * percentage) /
 
 /* Light theme overrides */
 [data-theme="light"] .donut-chart circle:first-of-type {
-  stroke: rgba(0, 0, 0, 0.08);
+  stroke: rgba(148, 163, 184, 0.3);
 }
 
 
