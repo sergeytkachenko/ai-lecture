@@ -41,6 +41,49 @@ html[data-theme='dark'] .slidev-layout {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Allow vertical scrolling when content overflows slide height */
+.slidev-layout {
+  overflow-y: auto !important;
+}
+
+/* Tighter spacing to fit more content per slide */
+.slidev-layout h1 {
+  margin-bottom: 0.5rem !important;
+}
+
+.slidev-layout h2 {
+  margin-bottom: 0.4rem !important;
+}
+
+.slidev-layout h3 {
+  margin-bottom: 0.3rem !important;
+}
+
+.slidev-layout li {
+  margin-bottom: 0.25rem !important;
+  line-height: 1.5 !important;
+}
+
+.slidev-layout p {
+  margin-bottom: 0.5rem !important;
+}
+
+.slidev-layout .mb-3 {
+  margin-bottom: 0.5rem !important;
+}
+
+.slidev-layout .mb-4 {
+  margin-bottom: 0.75rem !important;
+}
+
+.slidev-layout .mt-8 {
+  margin-top: 1.5rem !important;
+}
+
+.slidev-layout .mt-6 {
+  margin-top: 1rem !important;
+}
+
 /* Text colors */
 html[data-theme='dark'] .slidev-layout h1,
 html[data-theme='dark'] .slidev-layout h2,
@@ -173,11 +216,11 @@ html[data-theme='dark'] .slidev-icon-btn:hover {
 
 /* Accent highlight boxes */
 .accent-box {
-  padding: 1.25rem 1.5rem;
+  padding: 0.85rem 1.25rem;
   border-radius: 0.75rem;
   border-left: 4px solid #3b82f6;
   background: rgba(59, 130, 246, 0.08);
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .accent-box--green {

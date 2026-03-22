@@ -177,26 +177,6 @@ AI — екзоскелет для розуму, а не заміна людин
 
 ---
 
-# 📈 AI у цифрах — Головна думка
-
-<div class="accent-box text-center" style="margin-top: 2rem;">
-
-<div class="text-2xl font-bold mb-4">
-
-Україна не спостерігає за AI-революцією збоку — вона в її епіцентрі
-
-</div>
-
-<div class="text-lg opacity-80">
-
-Потреба в психологічній допомозі колосальна, а фахівців катастрофічно мало
-
-</div>
-
-</div>
-
----
-
 # Частина 1: Хто я
 
 <div class="grid grid-cols-2 gap-8 mt-4">
