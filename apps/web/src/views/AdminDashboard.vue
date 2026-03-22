@@ -89,45 +89,57 @@ onUnmounted(() => {
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
-        <!-- QR & Links -->
-        <div class="bg-white rounded-2xl shadow p-6 text-center">
-          <QrCode :url="joinUrl" />
-          <div class="mt-4 space-y-2">
-            <a :href="statsUrl" target="_blank" class="block text-indigo-600 hover:underline text-sm">Публічна статистика (проектор)</a>
-            <a :href="adminStatsUrl" target="_blank" class="block text-indigo-600 hover:underline text-sm">Детальна статистика</a>
+        <!-- QR Codes -->
+        <div class="space-y-6">
+          <!-- QR Code for Poll -->
+          <div class="bg-white rounded-2xl shadow p-6 text-center">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">QR-код для опитування</h3>
+            <QrCode :url="joinUrl" />
+            <div class="mt-4 space-y-2">
+              <a :href="statsUrl" target="_blank" class="block text-indigo-600 hover:underline text-sm">Публічна статистика (проектор)</a>
+              <a :href="adminStatsUrl" target="_blank" class="block text-indigo-600 hover:underline text-sm">Детальна статистика</a>
+            </div>
           </div>
 
-          <!-- Presentation Link -->
-          <div class="mt-4 pt-4 border-t border-gray-100">
-            <h3 class="text-sm font-semibold text-gray-700 mb-2">Посилання на презентацію</h3>
-            <div v-if="!isEditingLink">
-              <a
-                v-if="lecture.presentationLink"
-                :href="lecture.presentationLink"
-                target="_blank"
-                class="text-indigo-600 hover:underline text-sm break-all"
-              >{{ lecture.presentationLink }}</a>
-              <span v-else class="text-gray-400 text-sm">Не вказано</span>
-              <button
-                @click="isEditingLink = true"
-                class="ml-2 text-xs text-gray-400 hover:text-indigo-600"
-              >{{ lecture.presentationLink ? 'Змінити' : 'Додати' }}</button>
-            </div>
-            <div v-else class="flex gap-2">
-              <input
-                v-model="presentationLinkInput"
-                type="url"
-                placeholder="https://..."
-                class="flex-1 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-              />
-              <button
-                @click="savePresentationLink"
-                class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700"
-              >Зберегти</button>
-              <button
-                @click="isEditingLink = false; presentationLinkInput = lecture.presentationLink || ''"
-                class="px-3 py-1.5 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300"
-              >Скасувати</button>
+          <!-- QR Code for Presentation -->
+          <div class="bg-white rounded-2xl shadow p-6 text-center">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">QR-код презентації</h3>
+            <QrCode v-if="lecture.presentationLink" :url="lecture.presentationLink" />
+            <div v-else class="py-12 text-gray-400 text-sm">Посилання не вказано</div>
+
+            <!-- Presentation Link Edit -->
+            <div class="mt-4 pt-4 border-t border-gray-100">
+              <div v-if="!isEditingLink">
+                <a
+                  v-if="lecture.presentationLink"
+                  :href="lecture.presentationLink"
+                  target="_blank"
+                  class="text-indigo-600 hover:underline text-sm break-all"
+                >{{ lecture.presentationLink }}</a>
+                <span v-else class="text-gray-400 text-sm">Посилання не вказано</span>
+                <button
+                  @click="isEditingLink = true"
+                  class="ml-2 text-xs text-gray-400 hover:text-indigo-600"
+                >{{ lecture.presentationLink ? 'Змінити' : 'Додати' }}</button>
+              </div>
+              <div v-else class="space-y-2">
+                <input
+                  v-model="presentationLinkInput"
+                  type="url"
+                  placeholder="https://..."
+                  class="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                />
+                <div class="flex gap-2">
+                  <button
+                    @click="savePresentationLink"
+                    class="flex-1 px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700"
+                  >Зберегти</button>
+                  <button
+                    @click="isEditingLink = false; presentationLinkInput = lecture.presentationLink || ''"
+                    class="flex-1 px-3 py-1.5 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300"
+                  >Скасувати</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
