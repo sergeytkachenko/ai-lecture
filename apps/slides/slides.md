@@ -440,15 +440,6 @@ AI без промпту — як бібліотека без каталогу.<
 
 </v-clicks>
 
-<v-click>
-
-<div class="accent-box accent-box--yellow text-center font-bold">
-
-AI — потужний інструмент. Як і будь-який інструмент у медицині — він вимагає професійного судження. Саме ви встановлюватимете ці межі.
-
-</div>
-
-</v-click>
 
 ---
 layout: center
