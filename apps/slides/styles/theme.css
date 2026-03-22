@@ -1,517 +1,59 @@
-/* Base theme variables */
-:root {
-  /* Light theme (default) */
-  --slidev-theme-primary: #3b82f6;
-  --slidev-theme-background: #ffffff;
-  --slidev-theme-text: #1a202c;
-  --slidev-theme-text-secondary: #4a5568;
-  --slidev-theme-border: #e2e8f0;
-  --slidev-theme-code-bg: #f7fafc;
-  --slidev-theme-highlight: #edf2f7;
-
-  /* Theme switcher colors */
-  --theme-switcher-bg: rgba(255, 255, 255, 0.9);
-  --theme-switcher-border: #e2e8f0;
-  --theme-switcher-text: #1a202c;
-  --theme-switcher-hover-bg: #f7fafc;
-}
-
-/* Dark theme */
-[data-theme='dark'] {
-  --slidev-theme-primary: #60a5fa;
-  --slidev-theme-background: #1a202c;
-  --slidev-theme-text: #f7fafc;
-  --slidev-theme-text-secondary: #cbd5e0;
-  --slidev-theme-border: #2d3748;
-  --slidev-theme-code-bg: #2d3748;
-  --slidev-theme-highlight: #2d3748;
-
-  /* Theme switcher colors for dark mode */
-  --theme-switcher-bg: rgba(45, 55, 72, 0.9);
-  --theme-switcher-border: #4a5568;
-  --theme-switcher-text: #f7fafc;
-  --theme-switcher-hover-bg: #4a5568;
-}
-
-/* Apply theme colors to Slidev elements */
-html[data-theme='light'] .slidev-layout,
-html[data-theme='dark'] .slidev-layout {
-  background-color: var(--slidev-theme-background);
-  color: var(--slidev-theme-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Allow vertical scrolling when content overflows slide height */
+/* Font styles */
 .slidev-layout {
-  overflow-y: auto !important;
+  font-size: 16px;
 }
 
-/* Tighter spacing to fit more content per slide */
 .slidev-layout h1 {
-  margin-bottom: 0.5rem !important;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .slidev-layout h2 {
-  margin-bottom: 0.4rem !important;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .slidev-layout h3 {
-  margin-bottom: 0.3rem !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-.slidev-layout li {
-  margin-bottom: 0.25rem !important;
-  line-height: 1.5 !important;
+.slidev-layout h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .slidev-layout p {
-  margin-bottom: 0.5rem !important;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-.slidev-layout .mb-3 {
-  margin-bottom: 0.5rem !important;
+/* List styles */
+.slidev-layout ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
 }
 
-.slidev-layout .mb-4 {
-  margin-bottom: 0.75rem !important;
+.slidev-layout ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
 }
 
-.slidev-layout .mt-8 {
-  margin-top: 1.5rem !important;
+.slidev-layout li {
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+  font-size: 1rem;
 }
 
-.slidev-layout .mt-6 {
-  margin-top: 1rem !important;
+.slidev-layout ul ul {
+  list-style-type: circle;
+  margin-top: 0.25rem;
 }
 
-/* Text colors */
-html[data-theme='dark'] .slidev-layout h1,
-html[data-theme='dark'] .slidev-layout h2,
-html[data-theme='dark'] .slidev-layout h3,
-html[data-theme='dark'] .slidev-layout h4,
-html[data-theme='dark'] .slidev-layout h5,
-html[data-theme='dark'] .slidev-layout h6 {
-  color: var(--slidev-theme-text);
-}
-
-html[data-theme='dark'] .slidev-layout p,
-html[data-theme='dark'] .slidev-layout li,
-html[data-theme='dark'] .slidev-layout span {
-  color: var(--slidev-theme-text);
-}
-
-/* Code blocks */
-html[data-theme='dark'] .slidev-layout pre,
-html[data-theme='dark'] .slidev-layout code {
-  background-color: var(--slidev-theme-code-bg) !important;
-  color: var(--slidev-theme-text);
-}
-
-/* Links */
-html[data-theme='dark'] .slidev-layout a {
-  color: var(--slidev-theme-primary);
-}
-
-/* Borders */
-html[data-theme='dark'] .slidev-layout hr {
-  border-color: var(--slidev-theme-border);
-}
-
-/* Grid containers */
-html[data-theme='dark'] .slidev-layout .grid > div {
-  color: var(--slidev-theme-text);
-}
-
-/* Opacity adjustments for dark theme */
-html[data-theme='dark'] .opacity-50 {
-  opacity: 0.6;
-}
-
-html[data-theme='dark'] .opacity-75 {
-  opacity: 0.8;
-}
-
-/* Blue text adjustments for dark theme */
-html[data-theme='dark'] .text-blue-500 {
-  color: var(--slidev-theme-primary);
-}
-
-/* Lists */
-html[data-theme='dark'] .slidev-layout ul,
-html[data-theme='dark'] .slidev-layout ol {
-  color: var(--slidev-theme-text);
-}
-
-/* Tables */
-.slidev-layout table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-.slidev-layout th {
-  background-color: #3b82f6;
-  color: #ffffff;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.85em;
-  letter-spacing: 0.05em;
-  padding: 0.75rem 1rem;
-  text-align: left;
-}
-
-.slidev-layout td {
-  padding: 0.65rem 1rem;
-  border-bottom: 1px solid var(--slidev-theme-border, #e2e8f0);
-}
-
-.slidev-layout tbody tr:nth-child(even) {
-  background-color: rgba(59, 130, 246, 0.04);
-}
-
-.slidev-layout tbody tr:hover {
-  background-color: rgba(59, 130, 246, 0.08);
-}
-
-html[data-theme='dark'] .slidev-layout table {
-  color: var(--slidev-theme-text);
-}
-
-html[data-theme='dark'] .slidev-layout th {
-  background-color: #2563eb;
-}
-
-html[data-theme='dark'] .slidev-layout td {
-  border-color: var(--slidev-theme-border);
-}
-
-html[data-theme='dark'] .slidev-layout tbody tr:nth-child(even) {
-  background-color: rgba(96, 165, 250, 0.08);
-}
-
-html[data-theme='dark'] .slidev-layout tbody tr:hover {
-  background-color: rgba(96, 165, 250, 0.12);
-}
-
-/* Blockquotes */
-html[data-theme='dark'] .slidev-layout blockquote {
-  border-left-color: var(--slidev-theme-primary);
-  color: var(--slidev-theme-text-secondary);
-}
-
-/* Smooth transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Navigation controls */
-html[data-theme='dark'] .slidev-icon-btn {
-  color: var(--slidev-theme-text);
-  background: var(--slidev-theme-code-bg);
-}
-
-html[data-theme='dark'] .slidev-icon-btn:hover {
-  background: var(--slidev-theme-highlight);
-}
-
-/* Accent highlight boxes */
-.accent-box {
-  padding: 0.85rem 1.25rem;
-  border-radius: 0.75rem;
-  border-left: 4px solid #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
-  margin-top: 1rem;
-}
-
-.accent-box--green {
-  border-left-color: #22c55e;
-  background: rgba(34, 197, 94, 0.08);
-}
-
-.accent-box--red {
-  border-left-color: #ef4444;
-  background: rgba(239, 68, 68, 0.08);
-}
-
-.accent-box--yellow {
-  border-left-color: #eab308;
-  background: rgba(234, 179, 8, 0.08);
-}
-
-.accent-box--gray {
-  border-left-color: #6b7280;
-  background: rgba(107, 114, 128, 0.08);
-}
-
-html[data-theme='dark'] .accent-box {
-  background: rgba(96, 165, 250, 0.12);
-}
-
-html[data-theme='dark'] .accent-box--green {
-  background: rgba(34, 197, 94, 0.12);
-}
-
-html[data-theme='dark'] .accent-box--red {
-  background: rgba(239, 68, 68, 0.12);
-}
-
-html[data-theme='dark'] .accent-box--yellow {
-  background: rgba(234, 179, 8, 0.12);
-}
-
-html[data-theme='dark'] .accent-box--gray {
-  background: rgba(107, 114, 128, 0.15);
-}
-
-/* Section badge for part titles */
-.section-badge {
-  display: inline-block;
-  background: #3b82f6;
-  color: #ffffff;
-  font-size: 0.75em;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-html[data-theme='dark'] .section-badge {
-  background: #2563eb;
-}
-
-/* Speaker card */
-.speaker-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-  border: 1px solid rgba(59, 130, 246, 0.2);
-}
-
-html[data-theme='dark'] .speaker-card {
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.15));
-  border-color: rgba(96, 165, 250, 0.25);
-}
-
-/* Stat item styling */
-.stat-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.stat-number {
-  font-size: 1.5em;
-  font-weight: 800;
-  color: #3b82f6;
-  white-space: nowrap;
-}
-
-html[data-theme='dark'] .stat-number {
-  color: #60a5fa;
-}
-
-/* ========================================
-   MOBILE RESPONSIVE STYLES
-   ======================================== */
-
-/* Base mobile optimizations */
-@media screen and (max-width: 768px) {
-  /* Slidev layout adjustments */
-  .slidev-layout {
-    padding: 1.5rem !important;
-    font-size: 28px !important;
-  }
-
-  /* Headings scaling for mobile */
-  .slidev-layout h1 {
-    font-size: 3.5rem !important;
-    line-height: 1.2 !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .slidev-layout h2 {
-    font-size: 3rem !important;
-    line-height: 1.3 !important;
-    margin-bottom: 0.875rem !important;
-  }
-
-  .slidev-layout h3 {
-    font-size: 2.5rem !important;
-    line-height: 1.4 !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  .slidev-layout h4 {
-    font-size: 2.2rem !important;
-    line-height: 1.4 !important;
-  }
-
-  /* Paragraph and text adjustments */
-  .slidev-layout p {
-    font-size: 1.9rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  /* List items */
-  .slidev-layout li {
-    font-size: 1.8rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  /* Grid layouts - convert to single column on mobile */
-  .slidev-layout .grid {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
-
-  .slidev-layout .grid-cols-2 {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Reduce gaps and margins */
-  .slidev-layout .gap-4 {
-    gap: 0.75rem !important;
-  }
-
-  .slidev-layout .gap-8 {
-    gap: 1rem !important;
-  }
-
-  .slidev-layout .mt-4 {
-    margin-top: 0.75rem !important;
-  }
-
-  .slidev-layout .mt-8 {
-    margin-top: 1rem !important;
-  }
-
-  /* Code blocks - make scrollable horizontally */
-  .slidev-layout pre {
-    font-size: 1.5rem !important;
-    padding: 0.75rem !important;
-    overflow-x: auto !important;
-    max-width: 100% !important;
-  }
-
-  .slidev-layout code {
-    font-size: 1.6rem !important;
-  }
-
-  /* Make text larger for better readability */
-  .slidev-layout .text-2xl {
-    font-size: 2.5rem !important;
-  }
-
-  .slidev-layout .text-sm {
-    font-size: 1.6rem !important;
-  }
-
-  /* Adjust absolute positioned elements */
-  .slidev-layout .abs-br {
-    bottom: 0.5rem !important;
-    right: 0.5rem !important;
-  }
-
-  .slidev-layout .m-6 {
-    margin: 0.75rem !important;
-  }
-
-  /* Navigation buttons - make larger for touch */
-  .slidev-icon-btn {
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 2.5rem !important;
-  }
-
-  /* Page indicator */
-  .slidev-page-indicator {
-    font-size: 1.8rem !important;
-  }
-}
-
-/* Extra small devices (phones in portrait mode) */
-@media screen and (max-width: 480px) {
-  .slidev-layout {
-    padding: 1rem !important;
-    font-size: 26px !important;
-  }
-
-  .slidev-layout h1 {
-    font-size: 3rem !important;
-  }
-
-  .slidev-layout h2 {
-    font-size: 2.6rem !important;
-  }
-
-  .slidev-layout h3 {
-    font-size: 2.3rem !important;
-  }
-
-  .slidev-layout p,
-  .slidev-layout li {
-    font-size: 1.7rem !important;
-  }
-
-  /* Even smaller code on very small screens */
-  .slidev-layout pre {
-    font-size: 1.4rem !important;
-    padding: 0.5rem !important;
-  }
-}
-
-/* Landscape mobile devices */
-@media screen and (max-width: 768px) and (orientation: landscape) {
-  .slidev-layout {
-    padding: 1rem 2rem !important;
-  }
-
-  .slidev-layout h1 {
-    font-size: 3rem !important;
-  }
-
-  .slidev-layout h2 {
-    font-size: 2.6rem !important;
-  }
-}
-
-/* Touch-friendly adjustments */
-@media (hover: none) and (pointer: coarse) {
-  /* Increase tap target sizes */
-  .slidev-layout a,
-  .slidev-layout button {
-    min-height: 44px !important;
-    min-width: 44px !important;
-    padding: 0.5rem !important;
-  }
-
-  /* Remove hover effects on touch devices */
-  .slidev-icon-btn:hover {
-    transform: none !important;
-  }
-}
-
-/* Ensure images are responsive */
-@media screen and (max-width: 768px) {
-  .slidev-layout img {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* QR codes and similar elements */
-  .slidev-layout svg,
-  .slidev-layout canvas {
-    max-width: 100% !important;
-    height: auto !important;
-  }
+.slidev-layout ul ul ul {
+  list-style-type: square;
 }

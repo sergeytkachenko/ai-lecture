@@ -15,7 +15,6 @@ htmlAttrs:
 ---
 
 <style src="./styles/theme.css"></style>
-<style src="./styles/mobile.css"></style>
 
 <ThemeSwitcher />
 
