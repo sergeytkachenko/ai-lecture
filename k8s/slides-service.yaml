@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-lecture-slides
+  namespace: ai-lecture
+  labels:
+    app: ai-lecture-slides
+spec:
+  type: ClusterIP
+  selector:
+    app: ai-lecture-slides
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http

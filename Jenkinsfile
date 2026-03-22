@@ -166,6 +166,27 @@ EOF
                         }
                     }
                 }
+
+                stage('Slides Image') {
+                    agent { label 'docker' }
+                    steps {
+                        unstash 'source'
+                        container('docker') {
+                            sh """
+                                echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+
+                                docker build \
+                                    --pull=false \
+                                    -f apps/slides/Dockerfile \
+                                    -t ${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH} \
+                                    .
+                                docker push ${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH}
+
+                                docker logout
+                            """
+                        }
+                    }
+                }
             }
         }
 
@@ -229,9 +250,11 @@ EOF
                         kubectl apply \
                             -f k8s/api-service.yaml \
                             -f k8s/web-service.yaml \
+                            -f k8s/slides-service.yaml \
                             -f k8s/api-pdb.yaml \
                             -f k8s/api-deployment.yaml \
-                            -f k8s/web-deployment.yaml
+                            -f k8s/web-deployment.yaml \
+                            -f k8s/slides-deployment.yaml
 
                         kubectl set image deployment/ai-lecture-api \
                             ai-lecture-api=${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
@@ -239,12 +262,17 @@ EOF
                         kubectl set image deployment/ai-lecture-web \
                             ai-lecture-web=${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
                             -n ${NAMESPACE}
+                        kubectl set image deployment/ai-lecture-slides \
+                            ai-lecture-slides=${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH} \
+                            -n ${NAMESPACE}
 
                         kubectl rollout restart deployment/ai-lecture-api -n ${NAMESPACE}
                         kubectl rollout restart deployment/ai-lecture-web -n ${NAMESPACE}
+                        kubectl rollout restart deployment/ai-lecture-slides -n ${NAMESPACE}
 
                         kubectl rollout status deployment/ai-lecture-api -n ${NAMESPACE} --timeout=5m
                         kubectl rollout status deployment/ai-lecture-web -n ${NAMESPACE} --timeout=5m
+                        kubectl rollout status deployment/ai-lecture-slides -n ${NAMESPACE} --timeout=5m
 
                         echo "=== Deployment Status ==="
                         kubectl get pods -n ${NAMESPACE}
@@ -262,6 +290,7 @@ EOF
                     echo "=== Application URLs ===" > urls.txt
                     echo "Backend URL:  http://${SERVER_IP}:30092" >> urls.txt
                     echo "Frontend URL: http://${SERVER_IP}:30093" >> urls.txt
+                    echo "Slides URL:   http://${SERVER_IP}:30093/slides/" >> urls.txt
                     cat urls.txt
                 """
                 archiveArtifacts artifacts: 'urls.txt', fingerprint: true
@@ -270,6 +299,7 @@ EOF
             echo "Git commit: ${GIT_COMMIT_HASH}"
             echo "API: ${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH}"
             echo "Web: ${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH}"
+            echo "Slides: ${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH}"
         }
         failure {
             echo "Deployment failed. Check logs above."
