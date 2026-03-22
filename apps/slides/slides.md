@@ -166,7 +166,10 @@ class: text-center
 
 # <span class="material-icons" style="vertical-align: middle;">chat_bubble</span> Кейс 4: AI як особистий психолог
 
-<div class="mt-4 opacity-80">
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+<div class="opacity-80 mb-4">
 
 Моя дівчина використовує ChatGPT як психолога — і робить це настільки ефективно, що я щиро захоплений.
 
@@ -179,6 +182,14 @@ class: text-center
 - Різниця між марною і корисною відповіддю — **у першому реченні запиту**
 
 </v-clicks>
+
+</div>
+<div>
+
+<img src="/img/woman-thinking-laptop.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
+
+</div>
+</div>
 
 
 
