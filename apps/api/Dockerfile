@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build stage
-FROM public.ecr.aws/docker/library/node:20-alpine AS builder
+FROM docker-registry.docker-registry.svc.cluster.local:5000/node:20-alpine AS builder
 
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
@@ -27,7 +27,7 @@ RUN pnpm --filter @lecture-poll/shared build && \
     pnpm --filter api build
 
 # Production stage
-FROM public.ecr.aws/docker/library/node:20-alpine AS production
+FROM docker-registry.docker-registry.svc.cluster.local:5000/node:20-alpine AS production
 
 RUN apk add --no-cache dumb-init && \
     addgroup -g 1001 -S nodejs && \

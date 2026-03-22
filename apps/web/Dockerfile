@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build stage
-FROM public.ecr.aws/docker/library/node:20-alpine AS build
+FROM docker-registry.docker-registry.svc.cluster.local:5000/node:20-alpine AS build
 
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
@@ -31,7 +31,7 @@ RUN pnpm --filter @lecture-poll/shared build && \
     pnpm --filter web build
 
 # Production stage
-FROM public.ecr.aws/docker/library/nginx:alpine
+FROM docker-registry.docker-registry.svc.cluster.local:5000/nginx:alpine
 
 COPY --from=build /app/apps/web/dist /usr/share/nginx/html
 COPY apps/web/nginx.conf.template /etc/nginx/templates/default.conf.template

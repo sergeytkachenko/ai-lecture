@@ -85,13 +85,25 @@ stringData:
   POSTGRES_PASSWORD: "${DB_PASSWORD}"
   POSTGRES_DB: "${DB_DATABASE}"
 EOF
+
+                    cat > dockerhub-credentials.yaml <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerhub-credentials
+  namespace: ai-lecture
+type: Opaque
+stringData:
+  username: "${DOCKERHUB_USERNAME}"
+  token: "${DOCKERHUB_TOKEN}"
+EOF
                 '''
 
                 stash includes: 'apps/**,packages/**,k8s/**,package.json,pnpm-workspace.yaml,pnpm-lock.yaml,Jenkinsfile',
                       excludes: '**/node_modules/**,**/dist/**,**/build/**,**/coverage/**,*.log',
                       name: 'source',
                       useDefaultExcludes: true
-                stash includes: 'ai-lecture-api-secrets.yaml,ai-lecture-postgres-secret.yaml',
+                stash includes: 'ai-lecture-api-secrets.yaml,ai-lecture-postgres-secret.yaml,dockerhub-credentials.yaml',
                       name: 'secrets'
             }
         }
@@ -107,7 +119,8 @@ EOF
                         kubectl apply -f k8s/configmap.yaml
                         kubectl apply -f ai-lecture-api-secrets.yaml
                         kubectl apply -f ai-lecture-postgres-secret.yaml
-                        rm -f ai-lecture-api-secrets.yaml ai-lecture-postgres-secret.yaml
+                        kubectl apply -f dockerhub-credentials.yaml
+                        rm -f ai-lecture-api-secrets.yaml ai-lecture-postgres-secret.yaml dockerhub-credentials.yaml
 
                         if ! kubectl get statefulset postgres -n ${NAMESPACE} > /dev/null 2>&1; then
                             echo "PostgreSQL not found, deploying..."

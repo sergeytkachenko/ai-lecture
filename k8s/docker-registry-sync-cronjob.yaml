@@ -1,0 +1,77 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: docker-registry-sync
+  namespace: ai-lecture
+spec:
+  # Run daily at 2 AM
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: sync
+              image: docker:27-cli
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -ex
+
+                  # Login to Docker Hub to avoid rate limits
+                  echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+
+                  # Sync node:20-alpine
+                  docker pull node:20-alpine
+                  docker tag node:20-alpine docker-registry.docker-registry.svc.cluster.local:5000/node:20-alpine
+                  docker push docker-registry.docker-registry.svc.cluster.local:5000/node:20-alpine
+
+                  # Sync nginx:alpine
+                  docker pull nginx:alpine
+                  docker tag nginx:alpine docker-registry.docker-registry.svc.cluster.local:5000/nginx:alpine
+                  docker push docker-registry.docker-registry.svc.cluster.local:5000/nginx:alpine
+
+                  echo "✅ Successfully synced base images to local registry"
+              env:
+                - name: DOCKERHUB_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: dockerhub-credentials
+                      key: username
+                - name: DOCKERHUB_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: dockerhub-credentials
+                      key: token
+              volumeMounts:
+                - name: docker-sock
+                  mountPath: /var/run/docker.sock
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+          volumes:
+            - name: docker-sock
+              hostPath:
+                path: /var/run/docker.sock
+                type: Socket
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerhub-credentials
+  namespace: ai-lecture
+type: Opaque
+stringData:
+  # Replace with your Docker Hub credentials
+  # Or better: inject from Jenkins credentials
+  username: "your-dockerhub-username"
+  token: "your-dockerhub-token"

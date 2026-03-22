@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build stage
-FROM public.ecr.aws/docker/library/node:20-alpine AS build
+FROM docker-registry.docker-registry.svc.cluster.local:5000/node:20-alpine AS build
 
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
@@ -24,7 +24,7 @@ COPY apps/slides/ apps/slides/
 RUN pnpm --filter slides build
 
 # Production stage
-FROM public.ecr.aws/docker/library/nginx:alpine
+FROM docker-registry.docker-registry.svc.cluster.local:5000/nginx:alpine
 
 # Copy built slides
 COPY --from=build /app/apps/slides/dist /usr/share/nginx/html/slides
