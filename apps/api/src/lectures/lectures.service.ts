@@ -41,6 +41,15 @@ export class LecturesService {
     return lecture;
   }
 
+  async updatePresentationLink(adminToken: string, presentationLink: string | null) {
+    const [lecture] = await db
+      .update(lectures)
+      .set({ presentationLink })
+      .where(eq(lectures.adminToken, adminToken))
+      .returning();
+    return lecture;
+  }
+
   async getQuestionsForPhase(lectureId: string, phase: string) {
     return db
       .select()

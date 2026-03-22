@@ -12,6 +12,8 @@ const socketStore = useSocketStore();
 const adminToken = route.params.adminToken as string;
 const lecture = ref<any>(null);
 const responseCount = ref(0);
+const presentationLinkInput = ref('');
+const isEditingLink = ref(false);
 
 
 const PHASES = ['draft', 'pre_lecture', 'in_progress', 'post_lecture', 'closed'];
@@ -42,6 +44,14 @@ const currentPhaseIndex = computed(() =>
 
 async function loadLecture() {
   lecture.value = await get(`/admin/${adminToken}`);
+  presentationLinkInput.value = lecture.value?.presentationLink || '';
+}
+
+async function savePresentationLink() {
+  const link = presentationLinkInput.value.trim() || null;
+  await patch(`/admin/${adminToken}/presentation-link`, { presentationLink: link });
+  lecture.value.presentationLink = link;
+  isEditingLink.value = false;
 }
 
 async function nextPhase() {
@@ -85,6 +95,40 @@ onUnmounted(() => {
           <div class="mt-4 space-y-2">
             <a :href="statsUrl" target="_blank" class="block text-indigo-600 hover:underline text-sm">Публічна статистика (проектор)</a>
             <a :href="adminStatsUrl" target="_blank" class="block text-indigo-600 hover:underline text-sm">Детальна статистика</a>
+          </div>
+
+          <!-- Presentation Link -->
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Посилання на презентацію</h3>
+            <div v-if="!isEditingLink">
+              <a
+                v-if="lecture.presentationLink"
+                :href="lecture.presentationLink"
+                target="_blank"
+                class="text-indigo-600 hover:underline text-sm break-all"
+              >{{ lecture.presentationLink }}</a>
+              <span v-else class="text-gray-400 text-sm">Не вказано</span>
+              <button
+                @click="isEditingLink = true"
+                class="ml-2 text-xs text-gray-400 hover:text-indigo-600"
+              >{{ lecture.presentationLink ? 'Змінити' : 'Додати' }}</button>
+            </div>
+            <div v-else class="flex gap-2">
+              <input
+                v-model="presentationLinkInput"
+                type="url"
+                placeholder="https://..."
+                class="flex-1 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+              <button
+                @click="savePresentationLink"
+                class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700"
+              >Зберегти</button>
+              <button
+                @click="isEditingLink = false; presentationLinkInput = lecture.presentationLink || ''"
+                class="px-3 py-1.5 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300"
+              >Скасувати</button>
+            </div>
           </div>
         </div>
 

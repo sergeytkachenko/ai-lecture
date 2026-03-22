@@ -11,6 +11,7 @@ export const lectures = pgTable('lectures', {
   code: varchar('code', { length: 6 }).unique().notNull(),
   status: lectureStatusEnum('status').default('draft').notNull(),
   adminToken: uuid('admin_token').defaultRandom().notNull(),
+  presentationLink: varchar('presentation_link', { length: 2048 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
