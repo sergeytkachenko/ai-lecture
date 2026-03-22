@@ -17,7 +17,7 @@ function generateCode(): string {
 export class LecturesService {
   async create(title: string, speakerName: string) {
     const code = generateCode();
-    const [lecture] = await db.insert(lectures).values({ title, speakerName, code }).returning();
+    const [lecture] = await db.insert(lectures).values({ title, speakerName, code, presentationLink: '/slides/' }).returning();
     await seedDefaultQuestions(db, lecture.id);
     return { code: lecture.code, adminToken: lecture.adminToken };
   }
