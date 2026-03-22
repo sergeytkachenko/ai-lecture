@@ -195,93 +195,67 @@ class: text-center
 
 ---
 
-# <span class="material-icons" style="vertical-align: middle;">trending_up</span> AI у цифрах
+# <span class="material-icons" style="vertical-align: middle;">show_chart</span> Ринок AI — Експоненціальне зростання
 
-<v-clicks>
+Загальний обсяг ринку AI, $ млрд — зростання у 10 разів за десятиліття
 
-- **$1,5 трлн** витрат на AI у 2025 — майже 6 річних бюджетів України
-- **900 млн** користувачів ChatGPT щотижня — ніби кожен українець 20 разів
-- **21%** людей у світі використовують AI щодня — в Україні цей показник вищий
-- Українські IT-компанії — **топ-5** за внеском у відкриті AI-проєкти на GitHub
-- В умовах кадрового дефіциту психологів — AI стає **необхідністю**
-- Користувачі AI економлять **40–60 хв** щодня — година для клієнта, а не для паперів
-
-</v-clicks>
+<AIMarketGrowthNew />
 
 ---
 
-# Частина 1: Хто я
+# <span class="material-icons" style="vertical-align: middle;">groups</span> AI у світі — Хто вже використовує
 
-<div class="grid grid-cols-2 gap-8 mt-4">
-<div>
+Ключові показники поширення AI-інструментів у 2025–2026
 
-### Досвід
-
-- AI-інженер зі ступенем психолога (НПУ ім. Драгоманова)
-- 10+ років у гештальт-терапії
-- Власний стартап XMesh — платформа оркестрування AI-агентів
-- Платформа «віртуального психолога»
-
-</div>
-<div>
-
-<div class="speaker-card">
-
-<img src="/img/speaker-photo.jpg" class="rounded-full mx-auto mb-4" style="width: 200px; height: 200px; object-fit: cover;" />
-
-<div class="text-2xl font-bold mb-2">Сергій Ткаченко</div>
-
-<div class="text-base opacity-70 mb-4">Full Stack AI Engineer & Психолог</div>
-
-<div class="text-sm opacity-60 text-left mt-4">
-
-<span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">school</span> НПУ ім. Драгоманова — психологія
-
-<span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">psychology</span> 10+ років гештальт-терапії
-
-<span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">rocket_launch</span> Засновник XMesh
-
-<span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">smart_toy</span> Платформа «віртуального психолога»
-
-</div>
-
-</div>
-
-</div>
-</div>
+<AIAdoptionComparison />
 
 ---
 
-# Мій шлях із AI — 4 етапи еволюції
+# <span class="material-icons" style="vertical-align: middle;">public</span> Кожна п'ята людина на планеті
 
-<v-clicks>
+21% населення світу використовує AI щодня · 66% — хоча б раз на кілька місяців (KPMG, 2025)
 
-1. **Мрія** — колись мріяв про програму, яка підказує назви для функцій. Навіть це здавалося фантастикою.
-
-2. **Скептик** — вставляв готовий код і просив «переглянь». AI як рецензент. Писав усе сам, не довіряв.
-
-3. **Співавтор** — перестав писати першим. Описував, що потрібно — отримував чернетку. Продуктивність подвоїлась.
-
-4. **Архітектор** — сьогодні я не пишу код. Описую намір. AI реалізує. Я перевіряю і вирішую.
-
-</v-clicks>
+<GlobalAIAdoption />
 
 ---
 
-# Паралель для психологів
+# <span class="material-icons" style="vertical-align: middle;">psychology</span> AI як необхідність в психології (2025)
 
-<div class="accent-box accent-box--green">
+Дефіцит психологів + AI допомога = більше людей отримують підтримку
 
-<v-clicks>
+<PsychologistChart />
 
-- Та сама еволюція чекає на вас
-- Нотатки, пошук літератури, психоедукаційні матеріали — це **рутина**, яку забере AI
-- Ваша цінність — знати, **яку роботу треба зробити** і чи зроблено її правильно
-- Це і є **людська частина**
+<v-click>
 
-</v-clicks>
+<div class="accent-box accent-box--green text-center mt-4">
+
+**AI не замінює психолога** — він дає вам більше часу для клієнта.<br>
+Менше паперів, рутини — більше емпатії, уваги, терапії.
 
 </div>
+
+</v-click>
+
+---
+
+# <span class="material-icons" style="vertical-align: middle;">schedule</span> Час, який повертає AI (2025)
+
+Реальна економія часу для працівників, які використовують AI щодня
+
+<AITimeSavings />
+
+---
+
+# <span class="material-icons" style="vertical-align: middle;">trending_up</span> AI у цифрах (2025)
+
+## Підсумок
+
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; color: #10b981;">attach_money</span> **$1,5 трлн** витрат на AI у 2025 — майже 6 річних бюджетів України
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; color: #3b82f6;">groups</span> **900 млн** користувачів ChatGPT щотижня — ніби кожен українець 20 разів
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; color: #8b5cf6;">public</span> **21%** людей у світі використовують AI щодня — в Україні цей показник вищий
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; color: #f59e0b;">code</span> Українські IT-компанії — **топ-5** за внеском у відкриті AI-проєкти на GitHub
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; color: #ec4899;">psychology</span> В умовах кадрового дефіциту психологів — AI стає **необхідністю**
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; color: #06b6d4;">schedule</span> Користувачі AI економлять **40–60 хв** щодня — година для клієнта, а не для паперів
 
 ---
 
@@ -500,50 +474,39 @@ layout: center
 class: text-center
 ---
 
-# <span class="material-icons" style="vertical-align: middle;">thermostat</span> Емоційний термометр — Завершення
+# <span class="material-icons" style="vertical-align: middle;">thermostat</span> Емоційний термометр — Результати
 
----
-
-# Крок 2: Голосуємо «після»
-
-Ті самі два запитання + два нових:
+<div class="mt-12">
 
 <v-clicks>
 
-- «Чи використовуєте ви AI?» *(шкала 1–10)*
-- «Чи боїтеся, що AI забере вашу кар'єру психолога?» *(шкала 1–10)*
-- «За 10 років вам потрібен психотерапевт — до кого підете?» *(людина / AI / людина + AI)*
-- «Чи сподобалась лекція?» *(шкала 1–10)*
+<div class="accent-box mb-8">
+
+### Крок 1: Проголосуйте ще раз
+
+<div class="mt-2 text-lg opacity-70">
+
+Відскануйте QR-код на екрані
+
+</div>
+
+</div>
+
+<div class="accent-box accent-box--green">
+
+### Крок 2: Порівняння результатів
+
+<div class="mt-2 text-lg opacity-70">
+
+Дивимось, як змінилось ваше сприйняття AI
+
+</div>
+
+</div>
 
 </v-clicks>
 
----
-
-# Крок 3: Порівняння «до/після»
-
-<div class="mt-8 text-center text-2xl font-bold">
-
-<span class="material-icons" style="vertical-align: middle;">bolt</span> Перемикаємося на вкладку з результатами голосування
-
 </div>
-
-<div class="mt-6 text-center opacity-70">
-
-На екрані — стрілки, цифри, зміна
-
-</div>
-
-<v-click>
-
-<div class="accent-box accent-box--green text-center">
-
-**Очікуваний результат:**
-
-Використання AI ↑ &nbsp;&nbsp; Страх ↓ &nbsp;&nbsp; Більшість обирає «людина + AI»
-
-</div>
-
-</v-click>
 
 ---
 layout: center
