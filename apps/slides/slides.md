@@ -102,7 +102,10 @@ class: text-center
 
 # 📄 Кейс 2: Штраф в Італії
 
-<div class="mt-4 opacity-80">
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+<div class="opacity-80 mb-4">
 
 Документ італійською. Жодного поняття, що робити.
 
@@ -115,6 +118,14 @@ class: text-center
 - ⏱️ За **30 секунд**: що це, скільки, куди платити, до якого числа
 
 </v-clicks>
+
+</div>
+<div>
+
+<img src="/img/nanobanana-output/restoreoptimize_this_image_for_a.png" class="rounded shadow-lg" style="max-height: 400px;" />
+
+</div>
+</div>
 
 ---
 
