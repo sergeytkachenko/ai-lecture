@@ -186,7 +186,7 @@ class: text-center
 </div>
 <div>
 
-<img src="/img/woman-thinking-laptop.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
+<img src="/img/photo_2026-01-30_06-38-45.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
 
 </div>
 </div>
