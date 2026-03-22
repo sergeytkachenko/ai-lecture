@@ -259,9 +259,9 @@ onMounted(() => {
 
 .hour-cell {
   aspect-ratio: 1;
-  background: var(--cell-bg);
+  background: rgba(148, 163, 184, 0.15);
   border-radius: 8px;
-  border: 2px solid var(--cell-border);
+  border: 2px solid rgba(148, 163, 184, 0.3);
   transition: all 0.3s ease;
   min-width: 60px;
   min-height: 60px;
@@ -302,7 +302,8 @@ onMounted(() => {
 }
 
 .legend-box.regular {
-  background: var(--cell-bg);
+  background: rgba(148, 163, 184, 0.15);
+  border-color: rgba(148, 163, 184, 0.3);
 }
 
 .legend-box.saved {
