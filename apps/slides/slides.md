@@ -227,6 +227,8 @@ class: text-center
 
 <div class="speaker-card">
 
+<img src="/img/speaker-photo.jpg" class="rounded-full mx-auto mb-4" style="width: 200px; height: 200px; object-fit: cover;" />
+
 <div class="text-2xl font-bold mb-2">Сергій Ткаченко</div>
 
 <div class="text-base opacity-70 mb-4">Full Stack AI Engineer & Психолог</div>
