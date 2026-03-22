@@ -457,22 +457,6 @@ class: text-center
 
 ---
 
-# Крок 1: Результати «до»
-
-<div class="mt-8 text-center text-xl">
-
-Вперше показуємо результати відкриття
-
-</div>
-
-<div class="mt-4 text-center opacity-70">
-
-Пауза. Даємо побачити себе на початку.
-
-</div>
-
----
-
 # Крок 2: Голосуємо «після»
 
 Ті самі два запитання + два нових:
@@ -490,7 +474,13 @@ class: text-center
 
 # Крок 3: Порівняння «до/після»
 
-<div class="mt-8 text-center">
+<div class="mt-8 text-center text-2xl font-bold">
+
+⚡ Перемикаємося на вкладку з результатами голосування
+
+</div>
+
+<div class="mt-6 text-center opacity-70">
 
 На екрані — стрілки, цифри, зміна
 
@@ -540,8 +530,3 @@ Q&A — 19 хв
 
 </div>
 
-<div class="mt-8 text-sm opacity-50">
-
-Якщо час дозволяє — ще одне демо на запит аудиторії
-
-</div>
