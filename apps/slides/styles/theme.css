@@ -41,47 +41,89 @@ html[data-theme='dark'] .slidev-layout {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Allow vertical scrolling when content overflows slide height */
+/* Compact layout to fit all content without scrolling */
 .slidev-layout {
-  overflow-y: auto !important;
+  padding: 1.5rem 2.5rem !important;
+  font-size: 0.95em !important;
+  overflow: hidden !important;
 }
 
-/* Tighter spacing to fit more content per slide */
 .slidev-layout h1 {
-  margin-bottom: 0.5rem !important;
+  font-size: 1.8rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.4rem !important;
+  line-height: 1.2 !important;
 }
 
 .slidev-layout h2 {
-  margin-bottom: 0.4rem !important;
+  font-size: 1.4rem !important;
+  margin-bottom: 0.35rem !important;
+  line-height: 1.25 !important;
 }
 
 .slidev-layout h3 {
-  margin-bottom: 0.3rem !important;
-}
-
-.slidev-layout li {
+  font-size: 1.15rem !important;
   margin-bottom: 0.25rem !important;
-  line-height: 1.5 !important;
+  line-height: 1.3 !important;
 }
 
 .slidev-layout p {
-  margin-bottom: 0.5rem !important;
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.35rem !important;
+  line-height: 1.45 !important;
 }
 
-.slidev-layout .mb-3 {
-  margin-bottom: 0.5rem !important;
+.slidev-layout li {
+  margin-bottom: 0.15rem !important;
+  line-height: 1.4 !important;
+  font-size: 0.95em !important;
 }
 
-.slidev-layout .mb-4 {
-  margin-bottom: 0.75rem !important;
+.slidev-layout ul, .slidev-layout ol {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.3rem !important;
+  padding-left: 1.25rem !important;
 }
 
-.slidev-layout .mt-8 {
-  margin-top: 1.5rem !important;
+/* Tighter utility class overrides */
+.slidev-layout .mt-4 {
+  margin-top: 0.5rem !important;
 }
 
 .slidev-layout .mt-6 {
+  margin-top: 0.75rem !important;
+}
+
+.slidev-layout .mt-8 {
   margin-top: 1rem !important;
+}
+
+.slidev-layout .mb-2 {
+  margin-bottom: 0.3rem !important;
+}
+
+.slidev-layout .mb-3 {
+  margin-bottom: 0.4rem !important;
+}
+
+.slidev-layout .mb-4 {
+  margin-bottom: 0.5rem !important;
+}
+
+.slidev-layout .gap-8 {
+  gap: 1rem !important;
+}
+
+.slidev-layout .text-xl {
+  font-size: 1.1rem !important;
+}
+
+.slidev-layout .text-2xl {
+  font-size: 1.25rem !important;
+}
+
+.slidev-layout .text-lg {
+  font-size: 1rem !important;
 }
 
 /* Text colors */
@@ -154,14 +196,14 @@ html[data-theme='dark'] .slidev-layout ol {
   color: #ffffff;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.85em;
+  font-size: 0.8em;
   letter-spacing: 0.05em;
-  padding: 0.75rem 1rem;
+  padding: 0.45rem 0.75rem;
   text-align: left;
 }
 
 .slidev-layout td {
-  padding: 0.65rem 1rem;
+  padding: 0.35rem 0.75rem;
   border-bottom: 1px solid var(--slidev-theme-border, #e2e8f0);
 }
 
@@ -216,11 +258,11 @@ html[data-theme='dark'] .slidev-icon-btn:hover {
 
 /* Accent highlight boxes */
 .accent-box {
-  padding: 0.85rem 1.25rem;
-  border-radius: 0.75rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.5rem;
   border-left: 4px solid #3b82f6;
   background: rgba(59, 130, 246, 0.08);
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .accent-box--green {
@@ -268,11 +310,11 @@ html[data-theme='dark'] .accent-box--gray {
   display: inline-block;
   background: #3b82f6;
   color: #ffffff;
-  font-size: 0.75em;
+  font-size: 0.7em;
   font-weight: 700;
-  padding: 0.25rem 0.75rem;
+  padding: 0.15rem 0.6rem;
   border-radius: 9999px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -288,8 +330,8 @@ html[data-theme='dark'] .section-badge {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
-  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
