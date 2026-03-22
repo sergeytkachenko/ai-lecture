@@ -17,7 +17,9 @@ function generateCode(): string {
 export class LecturesService {
   async create(title: string, speakerName: string) {
     const code = generateCode();
-    const [lecture] = await db.insert(lectures).values({ title, speakerName, code, presentationLink: '/slides/' }).returning();
+    const baseUrl = process.env.CORS_ORIGIN || 'http://localhost:5173';
+    const presentationLink = `${baseUrl}/slides/`;
+    const [lecture] = await db.insert(lectures).values({ title, speakerName, code, presentationLink }).returning();
     await seedDefaultQuestions(db, lecture.id);
     return { code: lecture.code, adminToken: lecture.adminToken };
   }
