@@ -18,7 +18,6 @@ htmlAttrs:
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style src="./styles/theme.css"></style>
 
-<ThemeSwitcher />
 <ExportButton />
 
 # Людина & AI

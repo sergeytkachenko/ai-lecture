@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@slidev/cli": "^51.0.0",
-    "@slidev/theme-default": "latest"
+    "@slidev/theme-default": "latest",
+    "chart.js": "^4.5.1",
+    "recordrtc": "^5.6.2",
+    "vue-chartjs": "^5.3.3"
   }
 }
