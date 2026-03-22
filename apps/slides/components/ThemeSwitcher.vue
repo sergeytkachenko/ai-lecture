@@ -57,6 +57,9 @@ onMounted(() => {
   justify-content: center;
   transition: all 0.3s ease;
   color: var(--theme-switcher-text);
+  /* Touch-friendly size */
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .theme-button:hover {
@@ -67,5 +70,57 @@ onMounted(() => {
 .theme-button svg {
   width: 20px;
   height: 20px;
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 768px) {
+  .theme-switcher {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .theme-button {
+    padding: 0.625rem;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 0.625rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .theme-button svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+  .theme-switcher {
+    top: 0.375rem;
+    right: 0.375rem;
+  }
+
+  .theme-button {
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .theme-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Remove transform on touch devices to prevent issues */
+@media (hover: none) and (pointer: coarse) {
+  .theme-button:hover {
+    transform: none;
+  }
+
+  .theme-button:active {
+    opacity: 0.7;
+  }
 }
 </style>

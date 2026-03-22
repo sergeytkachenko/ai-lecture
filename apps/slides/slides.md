@@ -8,9 +8,13 @@ drawings:
   persist: false
 transition: slide-left
 css: unocss
+htmlAttrs:
+  lang: uk
+  viewport: width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes
 ---
 
 <style src="./styles/theme.css"></style>
+<style src="./styles/mobile.css"></style>
 
 <ThemeSwitcher />
 

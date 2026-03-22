@@ -129,3 +129,201 @@ html[data-theme='dark'] .slidev-icon-btn {
 html[data-theme='dark'] .slidev-icon-btn:hover {
   background: var(--slidev-theme-highlight);
 }
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Base mobile optimizations */
+@media screen and (max-width: 768px) {
+  /* Slidev layout adjustments */
+  .slidev-layout {
+    padding: 1.5rem !important;
+    font-size: 14px !important;
+  }
+
+  /* Headings scaling for mobile */
+  .slidev-layout h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .slidev-layout h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.875rem !important;
+  }
+
+  .slidev-layout h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .slidev-layout h4 {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Paragraph and text adjustments */
+  .slidev-layout p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* List items */
+  .slidev-layout li {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Grid layouts - convert to single column on mobile */
+  .slidev-layout .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .slidev-layout .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce gaps and margins */
+  .slidev-layout .gap-4 {
+    gap: 0.75rem !important;
+  }
+
+  .slidev-layout .gap-8 {
+    gap: 1rem !important;
+  }
+
+  .slidev-layout .mt-4 {
+    margin-top: 0.75rem !important;
+  }
+
+  .slidev-layout .mt-8 {
+    margin-top: 1rem !important;
+  }
+
+  /* Code blocks - make scrollable horizontally */
+  .slidev-layout pre {
+    font-size: 0.75rem !important;
+    padding: 0.75rem !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+
+  .slidev-layout code {
+    font-size: 0.8rem !important;
+  }
+
+  /* Make text larger for better readability */
+  .slidev-layout .text-2xl {
+    font-size: 1.25rem !important;
+  }
+
+  .slidev-layout .text-sm {
+    font-size: 0.8rem !important;
+  }
+
+  /* Adjust absolute positioned elements */
+  .slidev-layout .abs-br {
+    bottom: 0.5rem !important;
+    right: 0.5rem !important;
+  }
+
+  .slidev-layout .m-6 {
+    margin: 0.75rem !important;
+  }
+
+  /* Navigation buttons - make larger for touch */
+  .slidev-icon-btn {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.25rem !important;
+  }
+
+  /* Page indicator */
+  .slidev-page-indicator {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Extra small devices (phones in portrait mode) */
+@media screen and (max-width: 480px) {
+  .slidev-layout {
+    padding: 1rem !important;
+    font-size: 13px !important;
+  }
+
+  .slidev-layout h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .slidev-layout h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .slidev-layout h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .slidev-layout p,
+  .slidev-layout li {
+    font-size: 0.85rem !important;
+  }
+
+  /* Even smaller code on very small screens */
+  .slidev-layout pre {
+    font-size: 0.7rem !important;
+    padding: 0.5rem !important;
+  }
+}
+
+/* Landscape mobile devices */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .slidev-layout {
+    padding: 1rem 2rem !important;
+  }
+
+  .slidev-layout h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .slidev-layout h2 {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* Touch-friendly adjustments */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase tap target sizes */
+  .slidev-layout a,
+  .slidev-layout button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Remove hover effects on touch devices */
+  .slidev-icon-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* Ensure images are responsive */
+@media screen and (max-width: 768px) {
+  .slidev-layout img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* QR codes and similar elements */
+  .slidev-layout svg,
+  .slidev-layout canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}

@@ -1,0 +1,149 @@
+/* Mobile-specific optimizations and touch interactions */
+
+/* Prevent text selection on double tap */
+.slidev-layout * {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Allow text selection for actual content */
+.slidev-layout p,
+.slidev-layout li,
+.slidev-layout code,
+.slidev-layout pre {
+  -webkit-touch-callout: default;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Optimize scrolling performance */
+.slidev-layout {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Better font rendering on mobile */
+@media screen and (max-width: 768px) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Prevent zoom on input focus (if any forms are added) */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+}
+
+/* Swipe gesture visual feedback */
+.slidev-layout {
+  touch-action: pan-x pan-y;
+}
+
+/* Navigation arrows - larger touch targets on mobile */
+@media screen and (max-width: 768px) {
+  .slidev-icon-btn {
+    padding: 0.75rem !important;
+    border-radius: 50% !important;
+    background: var(--theme-switcher-bg) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Position navigation at the bottom for easier thumb access */
+  .slidev-nav {
+    bottom: 1rem;
+  }
+}
+
+/* Orientation change handling */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+  .slidev-layout {
+    /* Ensure content fits in portrait mode */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .slidev-layout {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .theme-switcher {
+    top: calc(0.5rem + env(safe-area-inset-top)) !important;
+    right: calc(0.5rem + env(safe-area-inset-right)) !important;
+  }
+
+  .slidev-nav {
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
+}
+
+/* Loading state optimization */
+@media screen and (max-width: 768px) {
+  /* Preload critical fonts */
+  body {
+    font-display: swap;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Dark mode adjustments for mobile OLED screens */
+@media screen and (max-width: 768px) {
+  [data-theme='dark'] .slidev-layout {
+    /* True black for OLED displays */
+    background-color: #000000;
+  }
+
+  [data-theme='dark'] .slidev-theme-code-bg {
+    background-color: #0a0a0a;
+  }
+}
+
+/* Landscape mode specific adjustments */
+@media screen and (max-width: 896px) and (orientation: landscape) {
+  .slidev-layout {
+    padding: 0.5rem 1.5rem !important;
+  }
+
+  .slidev-layout h1 {
+    font-size: 1.4rem !important;
+  }
+
+  .slidev-layout h2 {
+    font-size: 1.2rem !important;
+  }
+
+  .slidev-layout .grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Print styles for mobile (if students want to save slides) */
+@media print {
+  .theme-switcher,
+  .slidev-nav,
+  .slidev-icon-btn {
+    display: none !important;
+  }
+
+  .slidev-layout {
+    background: white !important;
+    color: black !important;
+    padding: 1cm !important;
+  }
+}
