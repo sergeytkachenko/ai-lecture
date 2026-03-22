@@ -7,7 +7,12 @@ class: text-center
 drawings:
   persist: false
 transition: slide-left
+css: unocss
 ---
+
+<style src="./styles/theme.css"></style>
+
+<ThemeSwitcher />
 
 # AI та психологія
 

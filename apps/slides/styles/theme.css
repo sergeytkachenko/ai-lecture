@@ -1,0 +1,131 @@
+/* Base theme variables */
+:root {
+  /* Light theme (default) */
+  --slidev-theme-primary: #3b82f6;
+  --slidev-theme-background: #ffffff;
+  --slidev-theme-text: #1a202c;
+  --slidev-theme-text-secondary: #4a5568;
+  --slidev-theme-border: #e2e8f0;
+  --slidev-theme-code-bg: #f7fafc;
+  --slidev-theme-highlight: #edf2f7;
+
+  /* Theme switcher colors */
+  --theme-switcher-bg: rgba(255, 255, 255, 0.9);
+  --theme-switcher-border: #e2e8f0;
+  --theme-switcher-text: #1a202c;
+  --theme-switcher-hover-bg: #f7fafc;
+}
+
+/* Dark theme */
+[data-theme='dark'] {
+  --slidev-theme-primary: #60a5fa;
+  --slidev-theme-background: #1a202c;
+  --slidev-theme-text: #f7fafc;
+  --slidev-theme-text-secondary: #cbd5e0;
+  --slidev-theme-border: #2d3748;
+  --slidev-theme-code-bg: #2d3748;
+  --slidev-theme-highlight: #2d3748;
+
+  /* Theme switcher colors for dark mode */
+  --theme-switcher-bg: rgba(45, 55, 72, 0.9);
+  --theme-switcher-border: #4a5568;
+  --theme-switcher-text: #f7fafc;
+  --theme-switcher-hover-bg: #4a5568;
+}
+
+/* Apply theme colors to Slidev elements */
+html[data-theme='light'] .slidev-layout,
+html[data-theme='dark'] .slidev-layout {
+  background-color: var(--slidev-theme-background);
+  color: var(--slidev-theme-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Text colors */
+html[data-theme='dark'] .slidev-layout h1,
+html[data-theme='dark'] .slidev-layout h2,
+html[data-theme='dark'] .slidev-layout h3,
+html[data-theme='dark'] .slidev-layout h4,
+html[data-theme='dark'] .slidev-layout h5,
+html[data-theme='dark'] .slidev-layout h6 {
+  color: var(--slidev-theme-text);
+}
+
+html[data-theme='dark'] .slidev-layout p,
+html[data-theme='dark'] .slidev-layout li,
+html[data-theme='dark'] .slidev-layout span {
+  color: var(--slidev-theme-text);
+}
+
+/* Code blocks */
+html[data-theme='dark'] .slidev-layout pre,
+html[data-theme='dark'] .slidev-layout code {
+  background-color: var(--slidev-theme-code-bg) !important;
+  color: var(--slidev-theme-text);
+}
+
+/* Links */
+html[data-theme='dark'] .slidev-layout a {
+  color: var(--slidev-theme-primary);
+}
+
+/* Borders */
+html[data-theme='dark'] .slidev-layout hr {
+  border-color: var(--slidev-theme-border);
+}
+
+/* Grid containers */
+html[data-theme='dark'] .slidev-layout .grid > div {
+  color: var(--slidev-theme-text);
+}
+
+/* Opacity adjustments for dark theme */
+html[data-theme='dark'] .opacity-50 {
+  opacity: 0.6;
+}
+
+html[data-theme='dark'] .opacity-75 {
+  opacity: 0.8;
+}
+
+/* Blue text adjustments for dark theme */
+html[data-theme='dark'] .text-blue-500 {
+  color: var(--slidev-theme-primary);
+}
+
+/* Lists */
+html[data-theme='dark'] .slidev-layout ul,
+html[data-theme='dark'] .slidev-layout ol {
+  color: var(--slidev-theme-text);
+}
+
+/* Tables */
+html[data-theme='dark'] .slidev-layout table {
+  color: var(--slidev-theme-text);
+}
+
+html[data-theme='dark'] .slidev-layout th,
+html[data-theme='dark'] .slidev-layout td {
+  border-color: var(--slidev-theme-border);
+}
+
+/* Blockquotes */
+html[data-theme='dark'] .slidev-layout blockquote {
+  border-left-color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-text-secondary);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Navigation controls */
+html[data-theme='dark'] .slidev-icon-btn {
+  color: var(--slidev-theme-text);
+  background: var(--slidev-theme-code-bg);
+}
+
+html[data-theme='dark'] .slidev-icon-btn:hover {
+  background: var(--slidev-theme-highlight);
+}
