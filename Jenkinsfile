@@ -134,7 +134,7 @@ EOF
                                 echo '{"auths":{"'${REGISTRY}'":{},"registry-1.docker.io":{"username":"'${DOCKERHUB_USERNAME}'","password":"'${DOCKERHUB_TOKEN}'"}}}' > /kaniko/.docker/config.json
 
                                 /kaniko/executor \
-                                    --context=dir:///home/jenkins/agent/workspace/${JOB_NAME} \
+                                    --context=\${WORKSPACE} \
                                     --dockerfile=apps/api/Dockerfile \
                                     --destination=${REGISTRY}/ai-lecture-api:${GIT_COMMIT_HASH} \
                                     --insecure \
@@ -155,7 +155,7 @@ EOF
                                 echo '{"auths":{"'${REGISTRY}'":{},"registry-1.docker.io":{"username":"'${DOCKERHUB_USERNAME}'","password":"'${DOCKERHUB_TOKEN}'"}}}' > /kaniko/.docker/config.json
 
                                 /kaniko/executor \
-                                    --context=dir:///home/jenkins/agent/workspace/${JOB_NAME} \
+                                    --context=\${WORKSPACE} \
                                     --dockerfile=apps/web/Dockerfile \
                                     --destination=${REGISTRY}/ai-lecture-web:${GIT_COMMIT_HASH} \
                                     --build-arg=VITE_API_URL=/api \
@@ -177,7 +177,7 @@ EOF
                                 echo '{"auths":{"'${REGISTRY}'":{},"registry-1.docker.io":{"username":"'${DOCKERHUB_USERNAME}'","password":"'${DOCKERHUB_TOKEN}'"}}}' > /kaniko/.docker/config.json
 
                                 /kaniko/executor \
-                                    --context=dir:///home/jenkins/agent/workspace/${JOB_NAME} \
+                                    --context=\${WORKSPACE} \
                                     --dockerfile=apps/slides/Dockerfile \
                                     --destination=${REGISTRY}/ai-lecture-slides:${GIT_COMMIT_HASH} \
                                     --insecure \
