@@ -221,8 +221,6 @@ class: text-center
 
 # <span class="material-icons" style="vertical-align: middle;">psychology</span> AI як необхідність в психології (2025)
 
-Дефіцит психологів + AI допомога = більше людей отримують підтримку
-
 <PsychologistChart />
 
 <v-click>
