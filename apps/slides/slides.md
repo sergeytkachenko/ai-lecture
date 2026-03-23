@@ -231,9 +231,10 @@ class: text-center
 </v-clicks>
 
 </div>
-<div>
+<div class="flex gap-1">
 
 <img src="/img/gemini_audio.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
+<img src="/img/gemini_live.PNG" class="rounded shadow-lg" style="max-height: 400px;" />
 
 </div>
 </div>
