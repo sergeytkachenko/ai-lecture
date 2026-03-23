@@ -122,6 +122,58 @@ layout: center
 class: text-center
 ---
 
+# <span class="material-icons" style="vertical-align: middle;">public</span> Кожна п'ята людина на планеті
+
+<div class="text-base opacity-80 mb-4">
+21% населення світу використовує AI щодня · 66% — хоча б раз на кілька місяців (KPMG, 2025)
+</div>
+
+<div class="grid grid-cols-2 gap-8 items-center mt-8">
+
+<div class="flex justify-center">
+<div style="position: relative; width: 300px; height: 300px;">
+  <svg viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" stroke-width="12"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#3b82f6" stroke-width="12"
+            stroke-dasharray="251.2" stroke-dashoffset="198.5" stroke-linecap="round"/>
+  </svg>
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+    <div style="font-size: 3.5rem; font-weight: bold; color: #3b82f6;">21%</div>
+    <div style="font-size: 1rem; font-weight: 600; margin-top: 0.5rem;">щодня</div>
+  </div>
+</div>
+</div>
+
+<div class="text-left space-y-4">
+
+<v-clicks>
+
+<div class="compact-box compact-box--green">
+<div class="font-bold mb-2" style="font-size: 1.8rem;">1.7 млрд</div>
+<div class="text-sm">людей використовують AI <strong>щодня</strong> — більше, ніж населення Китаю</div>
+</div>
+
+<div class="compact-box compact-box--blue">
+<div class="font-bold mb-2" style="font-size: 1.5rem;">×9</div>
+<div class="text-sm">зростання ChatGPT за 3 роки — <strong>від 100 млн до 900 млн</strong> щотижня</div>
+</div>
+
+<div class="compact-box compact-box--red">
+<div class="font-bold mb-2" style="font-size: 1.5rem;">48%</div>
+<div class="text-sm">усіх венчурних інвестицій у 2025 пішли в <strong>AI-компанії</strong> — кожен 2-й долар</div>
+</div>
+
+</v-clicks>
+
+</div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
 # <span class="material-icons" style="vertical-align: middle;">thermostat</span> Емоційний термометр
 
 Відскануйте QR-код на екрані
