@@ -233,7 +233,7 @@ class: text-center
 </div>
 <div>
 
-<img src="/img/autoban-optimized.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
+<img src="/img/gemini_audio.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
 
 </div>
 </div>
@@ -279,12 +279,12 @@ class: text-center
 <v-clicks>
 
 <div class="compact-box compact-box--blue mb-3" style="min-height: 100px;">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">edit_note</span> Без AI</div>
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">edit_note</span> Без AI (до 2022)</div>
 <div class="text-sm">Мріяв про програму, що пропонує гарні назви змінних. Кожен рядок коду — вручну.</div>
 </div>
 
 <div class="compact-box compact-box--purple mb-3" style="min-height: 100px;">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">explore</span> Скептик (ранній ChatGPT)</div>
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">explore</span> Скептик (2022–2023)</div>
 <div class="text-sm">«Переглянь цей код». AI — розумний рев'юер. Але все писав сам.</div>
 </div>
 
@@ -297,12 +297,12 @@ class: text-center
 <v-clicks>
 
 <div class="compact-box compact-box--orange mb-3" style="min-height: 100px;">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">sync</span> Партнер (6–12 місяців)</div>
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">sync</span> Партнер (2023–2024)</div>
 <div class="text-sm">Перестав писати першим. Описую що потрібно → AI генерує драфт → я переглядаю. Продуктивність подвоїлась.</div>
 </div>
 
 <div class="compact-box compact-box--green mb-3" style="min-height: 100px;">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">rocket_launch</span> Архітектор (сьогодні)</div>
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">rocket_launch</span> Архітектор (2025–зараз)</div>
 <div class="text-sm">Описую архітектуру простою мовою. AI пише, я переглядаю як сеньйор ревью джуна. Від «писати код» до «описувати намір».</div>
 </div>
 
