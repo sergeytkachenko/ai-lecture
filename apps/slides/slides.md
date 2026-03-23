@@ -118,42 +118,6 @@ class: text-center
 </div>
 
 ---
-
-# <span class="material-icons" style="vertical-align: middle;">shield_with_house</span> Чому від AI не сховаєшся?
-
-<div class="text-base opacity-80 mb-6">
-Це не тренд — це нова реальність
-</div>
-
-<v-clicks>
-
-<div class="compact-box compact-box--blue mb-4">
-<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">speed</span> 1. Експоненціальне зростання</div>
-<div class="text-sm">Ринок AI зростає у 10 разів за десятиліття. ChatGPT за 3 роки — від 100 млн до 900 млн користувачів щотижня.</div>
-</div>
-
-<div class="compact-box compact-box--green mb-4">
-<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">public</span> 2. Масовість впровадження</div>
-<div class="text-sm">Кожна п'ята людина на планеті вже використовує AI щодня. 1.7 мільярда людей — це більше, ніж населення Китаю.</div>
-</div>
-
-<div class="compact-box compact-box--purple mb-4">
-<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">attach_money</span> 3. Фінансова підтримка</div>
-<div class="text-sm">48% всіх венчурних інвестицій у 2025 — в AI-компанії. Бізнес не питає «чи?», а питає «як швидше?»</div>
-</div>
-
-<div class="compact-box compact-box--orange mb-4">
-<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">schedule</span> 4. Економія часу</div>
-<div class="text-sm">Користувачі AI економлять 40–60 хвилин щодня. Це не гаджет — це конкурентна перевага.</div>
-</div>
-
-<div class="accent-box accent-box--red text-center mt-6">
-<span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">lightbulb</span> **Вибір простий:** або ви вчитеся працювати з AI — або конкуруєте з тими, хто вже навчився.
-</div>
-
-</v-clicks>
-
----
 layout: center
 class: text-center
 ---
@@ -188,21 +152,65 @@ class: text-center
 
 ---
 
-# <span class="material-icons" style="vertical-align: middle;">access_time</span> Хронометраж
+# <span class="material-icons" style="vertical-align: middle;">description</span> Штраф в Італії
 
-| Розділ | Час |
-|--------|-----|
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">play_circle</span> Вступ і кейси | 15 хв |
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">person</span> Хто я / Мій шлях із AI | 10 хв |
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">lightbulb</span> Як працює AI | 3 хв |
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">video_library</span> Демо: Тренажер «Віртуальний клієнт» | 15 хв |
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">star</span> WOW-блок — 3 демо | 10 хв |
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">gavel</span> Етика AI | 3 хв |
-| <span class="material-icons" style="vertical-align: middle; font-size: 1em;">question_answer</span> Q&A + Завершення | 24 хв |
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+<div class="opacity-80 mb-4">
+
+Документ італійською. Жодного поняття, що робити.
+
+</div>
+
+<v-clicks>
+
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">photo_camera</span> Фото документа
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">smart_toy</span> Відправив в AI
+- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">timer</span> За **30 секунд**: що це, скільки, куди платити, до якого числа
+
+</v-clicks>
+
+</div>
+<div>
+
+<img src="/img/nanobanana-output/restoreoptimize_this_image_for_a.png" class="rounded shadow-lg" style="max-height: 400px;" />
+
+</div>
+</div>
 
 ---
 
-# <span class="material-icons" style="vertical-align: middle;">directions_car</span> Кейс 1: Презентація на автостраді
+# <span class="material-icons" style="vertical-align: middle;">chat_bubble</span> AI як особистий психолог
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+<div class="opacity-80 mb-4">
+
+Моя дівчина використовує ChatGPT як психолога — і робить це настільки ефективно, що я щиро захоплений.
+
+</div>
+
+<v-clicks>
+
+- Секрет не в інструменті — а в тому, **як вона формулює запит**
+- Налаштувала роль, описала ситуацію, попросила вести крок за кроком
+- Різниця між марною і корисною відповіддю — **у першому реченні запиту**
+
+</v-clicks>
+
+</div>
+<div>
+
+<img src="/img/photo_2026-01-30_06-38-45.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
+
+</div>
+</div>
+
+---
+
+# <span class="material-icons" style="vertical-align: middle;">directions_car</span> Презентація на автостраді
 
 <div class="grid grid-cols-2 gap-4 mt-4">
 <div>
@@ -232,66 +240,6 @@ class: text-center
 
 ---
 
-# <span class="material-icons" style="vertical-align: middle;">description</span> Кейс 2: Штраф в Італії
-
-<div class="grid grid-cols-2 gap-4 mt-4">
-<div>
-
-<div class="opacity-80 mb-4">
-
-Документ італійською. Жодного поняття, що робити.
-
-</div>
-
-<v-clicks>
-
-- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">photo_camera</span> Фото документа
-- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">smart_toy</span> Відправив в AI
-- <span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">timer</span> За **30 секунд**: що це, скільки, куди платити, до якого числа
-
-</v-clicks>
-
-</div>
-<div>
-
-<img src="/img/nanobanana-output/restoreoptimize_this_image_for_a.png" class="rounded shadow-lg" style="max-height: 400px;" />
-
-</div>
-</div>
-
----
-
-# <span class="material-icons" style="vertical-align: middle;">chat_bubble</span> Кейс 4: AI як особистий психолог
-
-<div class="grid grid-cols-2 gap-4 mt-4">
-<div>
-
-<div class="opacity-80 mb-4">
-
-Моя дівчина використовує ChatGPT як психолога — і робить це настільки ефективно, що я щиро захоплений.
-
-</div>
-
-<v-clicks>
-
-- Секрет не в інструменті — а в тому, **як вона формулює запит**
-- Налаштувала роль, описала ситуацію, попросила вести крок за кроком
-- Різниця між марною і корисною відповіддю — **у першому реченні запиту**
-
-</v-clicks>
-
-</div>
-<div>
-
-<img src="/img/photo_2026-01-30_06-38-45.jpg" class="rounded shadow-lg" style="max-height: 400px;" />
-
-</div>
-</div>
-
-
-
----
-
 # <span class="material-icons" style="vertical-align: middle;">show_chart</span> Ринок AI — Експоненціальне зростання
 
 Загальний обсяг ринку AI, $ млрд — зростання у 10 разів за десятиліття
@@ -305,14 +253,6 @@ class: text-center
 Ключові показники поширення AI-інструментів у 2025–2026
 
 <AIAdoptionComparison />
-
----
-
-# <span class="material-icons" style="vertical-align: middle;">public</span> Кожна п'ята людина на планеті
-
-21% населення світу використовує AI щодня · 66% — хоча б раз на кілька місяців (KPMG, 2025)
-
-<GlobalAIAdoption />
 
 ---
 
@@ -336,27 +276,33 @@ class: text-center
 
 <div>
 
-<div class="mb-4">
-
 <v-clicks>
 
-<div class="compact-box compact-box--blue mb-3">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">cloud_off</span> Мрійник (до AI)</div>
+<div class="compact-box compact-box--blue mb-3" style="min-height: 100px;">
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">edit_note</span> Без AI</div>
 <div class="text-sm">Мріяв про програму, що пропонує гарні назви змінних. Кожен рядок коду — вручну.</div>
 </div>
 
-<div class="compact-box compact-box--purple mb-3">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">search</span> Скептик (ранній ChatGPT)</div>
+<div class="compact-box compact-box--purple mb-3" style="min-height: 100px;">
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">explore</span> Скептик (ранній ChatGPT)</div>
 <div class="text-sm">«Переглянь цей код». AI — розумний рев'юер. Але все писав сам.</div>
 </div>
 
-<div class="compact-box compact-box--orange mb-3">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">handshake</span> Партнер (6–12 місяців)</div>
+</v-clicks>
+
+</div>
+
+<div>
+
+<v-clicks>
+
+<div class="compact-box compact-box--orange mb-3" style="min-height: 100px;">
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">sync</span> Партнер (6–12 місяців)</div>
 <div class="text-sm">Перестав писати першим. Описую що потрібно → AI генерує драфт → я переглядаю. Продуктивність подвоїлась.</div>
 </div>
 
-<div class="compact-box compact-box--green">
-<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">architecture</span> Архітектор (сьогодні)</div>
+<div class="compact-box compact-box--green mb-3" style="min-height: 100px;">
+<div class="font-bold mb-1"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">rocket_launch</span> Архітектор (сьогодні)</div>
 <div class="text-sm">Описую архітектуру простою мовою. AI пише, я переглядаю як сеньйор ревью джуна. Від «писати код» до «описувати намір».</div>
 </div>
 
@@ -366,29 +312,9 @@ class: text-center
 
 </div>
 
-<div>
-
-<v-click at="5">
-
-<div class="accent-box accent-box--green text-sm">
-
-**Та сама еволюція чекає кожну професію** — включно з психологією.
-
-Сьогодні ви пишете нотатки сесій вручну. Завтра — описуєте, що потрібно, і AI бере рутину на себе.
-
-**Ваша цінність** — у знанні, **ЩО робити** і **ЧИ це зроблено правильно**.
-
-</div>
-
-</v-click>
-
-</div>
-
-</div>
-
 ---
 
-# <span class="material-icons" style="vertical-align: middle;">psychology</span> AI як необхідність в психології (2025)
+# <span class="material-icons" style="vertical-align: middle;">psychology</span> AI як помічник психолога
 
 <PsychologistChart />
 
