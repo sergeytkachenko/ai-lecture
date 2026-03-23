@@ -170,6 +170,42 @@ class: text-center
 </div>
 
 ---
+
+# <span class="material-icons" style="vertical-align: middle;">shield_with_house</span> Чому від AI не сховаєшся?
+
+<div class="text-base opacity-80 mb-6">
+Це не тренд — це нова реальність
+</div>
+
+<v-clicks>
+
+<div class="compact-box compact-box--blue mb-4">
+<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">speed</span> 1. Експоненціальне зростання</div>
+<div class="text-sm">Ринок AI зростає у 10 разів за десятиліття. ChatGPT за 3 роки — від 100 млн до 900 млн користувачів щотижня.</div>
+</div>
+
+<div class="compact-box compact-box--green mb-4">
+<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">public</span> 2. Масовість впровадження</div>
+<div class="text-sm">Кожна п'ята людина на планеті вже використовує AI щодня. 1.7 мільярда людей — це більше, ніж населення Китаю.</div>
+</div>
+
+<div class="compact-box compact-box--purple mb-4">
+<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">attach_money</span> 3. Фінансова підтримка</div>
+<div class="text-sm">48% всіх венчурних інвестицій у 2025 — в AI-компанії. Бізнес не питає «чи?», а питає «як швидше?»</div>
+</div>
+
+<div class="compact-box compact-box--orange mb-4">
+<div class="font-bold mb-2"><span class="material-icons" style="vertical-align: middle; font-size: 1em;">schedule</span> 4. Економія часу</div>
+<div class="text-sm">Користувачі AI економлять 40–60 хвилин щодня. Це не гаджет — це конкурентна перевага.</div>
+</div>
+
+<div class="accent-box accent-box--red text-center mt-6">
+<span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">lightbulb</span> **Вибір простий:** або ви вчитеся працювати з AI — або конкуруєте з тими, хто вже навчився.
+</div>
+
+</v-clicks>
+
+---
 layout: center
 class: text-center
 ---
