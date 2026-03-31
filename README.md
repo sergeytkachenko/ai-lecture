@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=hxFU52no2EQ
+
 # Lecture Poll
 
 Real-time audience polling for lectures. Speaker creates a session, shares a QR code, collects anonymous responses at the start and end of lecture, and views live statistics on a projector.
