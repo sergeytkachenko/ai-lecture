@@ -51,7 +51,7 @@ jobs:
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
             -u "${JENKINS_USER}:${JENKINS_TOKEN}" \
             -H "${CRUMB_FIELD}: ${CRUMB}" \
-            "${JENKINS_URL}/job/ai-lecture/job/main/build")
+            "${JENKINS_URL}/job/admin/job/ai-lecture/job/main/build")
 
           if [ "$HTTP_CODE" = "201" ] || [ "$HTTP_CODE" = "200" ]; then
             echo "✓ Jenkins job triggered successfully (HTTP ${HTTP_CODE})"
@@ -70,7 +70,7 @@ jobs:
         continue-on-error: true
         run: |
           BUILD_INFO=$(curl -sf -u "${JENKINS_USER}:${JENKINS_TOKEN}" \
-            "${JENKINS_URL}/job/ai-lecture/job/main/lastBuild/api/json")
+            "${JENKINS_URL}/job/admin/job/ai-lecture/job/main/lastBuild/api/json")
 
           BUILD_NUMBER=$(echo "$BUILD_INFO" | jq -r '.number')
           BUILD_RESULT=$(echo "$BUILD_INFO" | jq -r '.result // "IN_PROGRESS"')
